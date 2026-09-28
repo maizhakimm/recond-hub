@@ -101,8 +101,8 @@ export function CarDetail({ data, car, articles }: { data: SiteData; car: Car; a
 
       {sold && (
         <div role="status" className="mb-6 rounded-xl bg-ink p-5 text-paper">
-          <p className="font-serif text-2xl">This {car.make} {car.model} has been sold.</p>
-          <p className="mt-1 text-[#d8cfbd]">Good news: we have similar cars below, and we can source another one for you.</p>
+          <p className="text-2xl">This {car.make} {car.model} has been sold.</p>
+          <p className="mt-1 text-[#c5cad3]">Good news: we have similar cars below, and we can source another one for you.</p>
           <div className="mt-3 flex flex-wrap gap-2">
             <Link href={`/cars/${car.makeSlug}/${car.modelSlug}`} className="btn btn-gold">
               See all {car.model} in stock
@@ -236,7 +236,7 @@ export function CarDetail({ data, car, articles }: { data: SiteData; car: Car; a
             {articles.map((a) => (
               <li key={a.slug}>
                 <Link href={`/guide/${a.slug}`} className="block h-full rounded-xl border border-line bg-card p-5 hover:border-gold">
-                  <p className="font-serif text-xl font-semibold leading-tight">{a.title}</p>
+                  <p className="text-xl font-semibold leading-tight">{a.title}</p>
                   <p className="mt-2 line-clamp-2 text-sm text-ink-2">{a.description}</p>
                 </Link>
               </li>
@@ -258,7 +258,7 @@ function TitleBlock({ car, monthly }: { car: Car; monthly: number }) {
       </div>
       <h1 className="text-3xl leading-tight sm:text-4xl">
         {car.year_manufactured} {car.make} {car.model}
-        {car.variant && <span className="block text-xl text-ink-2">{car.variant}</span>}
+        {car.variant && <span className="mt-1 block text-lg font-semibold tracking-normal text-muted">{car.variant}</span>}
       </h1>
       <p className="mt-3 text-3xl font-bold tnum">{car.status === "Sold" ? "Sold" : formatRM(car.price_rm)}</p>
       {car.status !== "Sold" && (

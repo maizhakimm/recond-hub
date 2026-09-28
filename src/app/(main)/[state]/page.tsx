@@ -94,8 +94,8 @@ export default async function StatePage({ params }: PageProps<"/[state]">) {
           </div>
           {!agents.length && (
             <div className="mt-4 rounded-xl bg-ink p-5 text-paper">
-              <p className="font-serif text-2xl">Become our agent in {st.name}</p>
-              <p className="mt-1 text-sm text-[#d8cfbd]">Know cars and people in {st.name}? Earn commission selling recond cars with {BRAND}&rsquo;s stock and support.</p>
+              <p className="text-2xl">Become our agent in {st.name}</p>
+              <p className="mt-1 text-sm text-[#c5cad3]">Know cars and people in {st.name}? Earn commission selling recond cars with {BRAND}&rsquo;s stock and support.</p>
               <Link href={`/become-an-agent?state=${st.slug}`} className="btn btn-gold mt-3">
                 Apply now
               </Link>

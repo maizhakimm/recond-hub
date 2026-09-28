@@ -2,60 +2,62 @@ import Link from "next/link";
 import type { CarSummary } from "@/lib/data/queries";
 import { carAlt, formatKm, formatRM } from "@/lib/format";
 import { CarImage } from "./CarImage";
-import { GradeBadge, StatusBadge, TrustRow } from "./Badges";
+import { StatusBadge } from "./Badges";
 import { WhatsAppButton } from "./WhatsAppButton";
-import { PinIcon } from "@/components/ui/Icons";
+import { PinIcon, ShieldIcon } from "@/components/ui/Icons";
 
 export function CarCard({ car, priority = false }: { car: CarSummary; priority?: boolean }) {
   const href = `/cars/${car.slug}`;
   const name = `${car.year} ${car.make} ${car.model}`;
+  const sold = car.status === "Sold";
   return (
-    <article className="group flex flex-col overflow-hidden rounded-xl border border-line bg-card shadow-sm transition hover:shadow-md">
-      <Link href={href} className="relative block aspect-[4/3] overflow-hidden bg-paper-2" aria-label={`${name} ${car.variant}`}>
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-card transition hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-12px_rgba(14,17,22,0.25)]">
+      <div className="relative aspect-[16/11] overflow-hidden bg-paper-2">
         <CarImage
           src={car.cover}
           alt={carAlt(car)}
           fill
-          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-          className={`object-cover transition duration-300 group-hover:scale-[1.02] ${car.status === "Sold" ? "grayscale" : ""}`}
+          sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw"
+          className={`object-cover transition duration-500 group-hover:scale-[1.03] ${sold ? "grayscale" : ""}`}
           priority={priority}
         />
-        <div className="absolute left-2 top-2 flex gap-1.5">
+        <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
+          {!sold && (
+            <span className="inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-semibold text-trust shadow-sm">
+              <ShieldIcon className="h-3.5 w-3.5" /> Auction sheet verified
+            </span>
+          )}
           <StatusBadge status={car.status} />
         </div>
-        <span className="absolute bottom-2 right-2 rounded bg-ink/80 px-1.5 py-0.5 text-[11px] font-medium text-paper tnum">#{car.code}</span>
-      </Link>
-      <div className="flex flex-1 flex-col gap-2 p-4">
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="font-sans text-base font-semibold leading-snug tracking-normal">
-            <Link href={href} className="hover:underline">
-              {car.make} {car.model}
-            </Link>
-            <span className="block text-sm font-normal text-muted">
-              {car.variant ? `${car.variant} · ` : ""}
-              {car.year}
-            </span>
-          </h3>
-          <GradeBadge grade={car.grade} />
-        </div>
-        <p className="flex flex-wrap items-center gap-x-3 text-sm text-ink-2 tnum">
-          <span>{formatKm(car.mileage)}</span>
-          <span className="inline-flex items-center gap-1">
-            <PinIcon className="h-3.5 w-3.5" />
+      </div>
+
+      <div className="flex flex-1 flex-col gap-0 p-4 pb-4">
+        <h3 className="text-base font-bold leading-snug tracking-tight">
+          {/* Whole card is clickable; the WhatsApp button sits above the link layer */}
+          <Link href={href} className="after:absolute after:inset-0 after:content-['']">
+            {name}
+          </Link>
+        </h3>
+        <p className="mt-0.5 truncate text-sm text-muted">{car.variant || car.body}</p>
+
+        <ul className="mb-4 mt-3 flex flex-wrap gap-x-3 gap-y-1 text-[13px] text-ink-2 tnum">
+          <li>{formatKm(car.mileage)}</li>
+          {car.grade && <li>Grade {car.grade}</li>}
+          <li className="inline-flex items-center gap-1">
+            <PinIcon className="h-3.5 w-3.5 text-muted" />
             {car.state}
-          </span>
-        </p>
-        <TrustRow compact />
-        <div className="mt-auto flex items-end justify-between gap-3 pt-2">
+          </li>
+        </ul>
+
+        <div className="mt-auto flex items-end justify-between gap-3 border-t border-line pt-3">
           <div>
-            <p className="whitespace-nowrap text-xl font-bold tnum">{car.status === "Sold" ? "Sold" : formatRM(car.price)}</p>
-            {car.status !== "Sold" && <p className="whitespace-nowrap text-xs text-muted tnum">from {formatRM(car.monthly)}/month</p>}
+            <p className="whitespace-nowrap text-xl font-extrabold tracking-tight tnum">{sold ? "Sold" : formatRM(car.price)}</p>
+            {!sold && <p className="whitespace-nowrap text-xs font-medium text-muted tnum">from {formatRM(car.monthly)}/mo</p>}
           </div>
-          {car.status !== "Sold" && (
+          {!sold && (
             <WhatsAppButton
-              className="btn btn-wa px-3"
-              label="Ask"
-              ariaLabel={`WhatsApp about ${name} #${car.code}`}
+              className="btn btn-wa relative z-10 h-11 w-11 rounded-full p-0 [&>span]:sr-only"
+              label={`WhatsApp about ${name} #${car.code}`}
               carCode={car.code}
               state={car.stateSlug}
               message={`Hi, I'm interested in ${name} ${car.variant} · #${car.code}`}
@@ -69,7 +71,7 @@ export function CarCard({ car, priority = false }: { car: CarSummary; priority?:
 
 export function CarGrid({ cars, priorityFirst = 0, narrow = false }: { cars: CarSummary[]; priorityFirst?: number; narrow?: boolean }) {
   return (
-    <ul className={`grid grid-cols-1 gap-4 sm:grid-cols-2 ${narrow ? "xl:grid-cols-3" : "lg:grid-cols-3 xl:grid-cols-4"}`}>
+    <ul className={`grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 ${narrow ? "xl:grid-cols-3" : "lg:grid-cols-3 xl:grid-cols-4"}`}>
       {cars.map((c, i) => (
         <li key={c.code}>
           <CarCard car={c} priority={i < priorityFirst} />

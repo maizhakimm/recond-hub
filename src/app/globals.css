@@ -2,16 +2,18 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-paper: #f4f1ea;
-  --color-paper-2: #ebe6da;
-  --color-card: #fbfaf6;
-  --color-ink: #1c1915;
-  --color-ink-2: #4a443b;
-  --color-muted: #6b6356;
-  --color-line: #ddd6c7;
-  /* gold #8A6A2B is for accents, borders and large text; gold-text passes AA for small text on paper */
-  --color-gold: #8a6a2b;
-  --color-gold-text: #735621;
+  /* Modern trusted: white surfaces, near-black ink, gold as a small brand accent, green for verification */
+  --color-paper: #ffffff;
+  --color-paper-2: #f4f5f7;
+  --color-card: #ffffff;
+  --color-ink: #0e1116;
+  --color-ink-2: #3d4450;
+  --color-muted: #6b7280;
+  --color-line: #e6e8ec;
+  --color-gold: #b8862b;
+  --color-gold-text: #8a5f12;
+  --color-trust: #0f7a4a;
+  --color-trust-bg: #e8f5ee;
   --color-champagne: #c9a55c;
   --color-night: #0b0a08;
   --color-night-2: #14120f;
@@ -20,7 +22,7 @@
   --color-whatsapp-dark: #0e6f31;
 
   --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-  --font-sans: var(--font-dm-sans), "DM Sans", system-ui, sans-serif;
+  --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;
 }
 
 @layer base {
@@ -35,12 +37,20 @@
   h1,
   h2,
   h3 {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+  }
+  /* Private Sourcing keeps the cinematic serif */
+  .theme-private h1,
+  .theme-private h2,
+  .theme-private h3 {
     font-family: var(--font-serif);
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: -0.01em;
   }
   :focus-visible {
-    outline: 2px solid var(--color-gold);
+    outline: 2px solid var(--color-ink);
     outline-offset: 2px;
   }
   dialog::backdrop {
@@ -76,8 +86,8 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    border-radius: 0.5rem;
-    padding: 0.625rem 1.125rem;
+    border-radius: 0.75rem;
+    padding: 0.625rem 1.25rem;
     font-weight: 600;
     font-size: 0.9375rem;
     line-height: 1.2;
@@ -93,7 +103,7 @@
     color: var(--color-paper);
   }
   .btn-primary:hover {
-    background: #332e27;
+    background: #262b33;
   }
   .btn-gold {
     background: var(--color-gold);
@@ -103,12 +113,12 @@
     background: var(--color-gold-text);
   }
   .btn-outline {
-    border: 1px solid var(--color-ink);
+    border: 1px solid var(--color-line);
+    background: #fff;
     color: var(--color-ink);
   }
   .btn-outline:hover {
-    background: var(--color-ink);
-    color: var(--color-paper);
+    border-color: var(--color-ink);
   }
   .btn-wa {
     background: var(--color-whatsapp);
@@ -121,16 +131,16 @@
     display: block;
     width: 100%;
     min-height: 2.75rem;
-    border-radius: 0.5rem;
+    border-radius: 0.75rem;
     border: 1px solid var(--color-line);
     background: #fff;
-    padding: 0.5rem 0.75rem;
+    padding: 0.5rem 0.875rem;
     font-size: 1rem;
     color: var(--color-ink);
   }
   .field:focus {
-    border-color: var(--color-gold);
-    outline: 2px solid color-mix(in srgb, var(--color-gold) 35%, transparent);
+    border-color: var(--color-ink);
+    outline: 3px solid color-mix(in srgb, var(--color-ink) 12%, transparent);
     outline-offset: 0;
   }
   .label {
@@ -143,7 +153,7 @@
   .eyebrow {
     font-size: 0.75rem;
     font-weight: 600;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-gold-text);
   }
@@ -160,7 +170,7 @@
     font-weight: 500;
   }
   .chip:hover {
-    border-color: var(--color-gold);
+    border-color: var(--color-ink);
   }
   /* dark (Private Sourcing) form fields */
   .field-dark {

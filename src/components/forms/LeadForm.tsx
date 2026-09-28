@@ -66,7 +66,7 @@ export function LeadForm({ kind, fields }: { kind: Kind; fields: Field[] }) {
   if (done)
     return (
       <div role="status" className="rounded-xl border border-line bg-card p-6">
-        <p className="font-serif text-2xl">Thank you. We&rsquo;ve received your request.</p>
+        <p className="text-2xl">Thank you. We&rsquo;ve received your request.</p>
         <p className="mt-1 text-ink-2">If WhatsApp didn&rsquo;t open, message us and mention your name so we can match it.</p>
       </div>
     );

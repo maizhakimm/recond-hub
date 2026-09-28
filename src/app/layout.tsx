@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import { Pixels } from "@/components/analytics/Pixels";
 import { SiteProvider } from "@/components/site/SiteProvider";
 import { getSiteData } from "@/lib/data";
@@ -12,7 +12,7 @@ const serif = Cormorant_Garamond({
   variable: "--font-cormorant",
   display: "swap",
 });
-const sans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans", display: "swap" });
+const sans = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1C1915",
+  themeColor: "#ffffff",
   width: "device-width",
   initialScale: 1,
 };

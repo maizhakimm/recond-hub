@@ -3,7 +3,7 @@ import { Logo } from "@/components/site/Header";
 
 export default function PrivateLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-dvh bg-night text-[#f1ead9]">
+    <div className="theme-private min-h-dvh bg-night text-[#f1ead9]">
       <header className="absolute inset-x-0 top-0 z-20">
         <div className="container-page flex h-16 items-center justify-between">
           <Logo dark />

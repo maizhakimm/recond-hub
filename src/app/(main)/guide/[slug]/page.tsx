@@ -99,7 +99,7 @@ export default async function ArticlePage({ params }: PageProps<"/guide/[slug]">
             </details>
           )}
 
-          <div className="prose prose-stone max-w-none prose-headings:scroll-mt-20 prose-headings:font-serif prose-h2:text-3xl prose-a:text-gold-text prose-table:text-sm prose-th:text-left">
+          <div className="prose prose-stone max-w-none prose-headings:scroll-mt-20 prose-headings:prose-h2:text-3xl prose-a:text-gold-text prose-table:text-sm prose-th:text-left">
             {content}
           </div>
 
@@ -145,7 +145,7 @@ export default async function ArticlePage({ params }: PageProps<"/guide/[slug]">
           ) : (
             <section className="mt-12 rounded-2xl bg-ink p-6 text-paper sm:p-8">
               <h2 className="text-3xl text-paper">Questions? Ask a recond specialist.</h2>
-              <p className="mt-2 text-[#d8cfbd]">We reply on WhatsApp, usually within minutes during showroom hours.</p>
+              <p className="mt-2 text-[#c5cad3]">We reply on WhatsApp, usually within minutes during showroom hours.</p>
               <WhatsAppButton className="btn btn-wa mt-4" label="Ask on WhatsApp" message={`Hi, I read "${a.title}" and have a question.`} />
             </section>
           )}

@@ -1,9 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
-<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ebe6da"/><stop offset="1" stop-color="#d9d1bf"/></linearGradient>
-<linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4a443b"/><stop offset="1" stop-color="#1c1915"/></linearGradient></defs>
-<rect width="800" height="600" fill="url(#g)"/>
-<ellipse cx="400" cy="385" rx="360" ry="22" fill="#1c1915" opacity=".12"/>
-<g transform="translate(0,20)"><path d="M50 330 L55 250 Q60 230 100 228 L380 228 L400 170 Q410 155 440 155 L560 155 Q600 158 630 200 L660 235 Q730 245 745 280 L748 330 Z" fill="url(#b)"/><circle cx="190" cy="330" r="46" fill="#1c1915"/><circle cx="190" cy="330" r="22" fill="#8a6a2b"/><circle cx="610" cy="330" r="46" fill="#1c1915"/><circle cx="610" cy="330" r="22" fill="#8a6a2b"/></g>
-<text x="400" y="500" text-anchor="middle" font-family="Georgia,serif" font-size="34" fill="#4a443b">Pickup</text>
-<text x="400" y="540" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" letter-spacing="4" fill="#735621">SAMPLE PHOTO</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 550" width="800" height="550">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3f4f6"/><stop offset=".72" stop-color="#e5e7eb"/><stop offset="1" stop-color="#d7dbe1"/></linearGradient>
+<linearGradient id="b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a404a"/><stop offset="1" stop-color="#171a1f"/></linearGradient>
+<linearGradient id="w" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9aa3af"/><stop offset="1" stop-color="#4b5563"/></linearGradient>
+<radialGradient id="sh" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#0e1116" stop-opacity=".35"/><stop offset="1" stop-color="#0e1116" stop-opacity="0"/></radialGradient></defs>
+<rect width="800" height="550" fill="url(#bg)"/>
+<ellipse cx="400" cy="400" rx="380" ry="34" fill="url(#sh)"/>
+<g transform="translate(0,40)"><path d="M50 330 L55 252 Q60 232 100 230 L380 230 L402 172 Q412 157 442 157 L560 157 Q602 160 632 202 L662 237 Q732 247 747 282 L749 330 Z" fill="url(#b)"/><path d="M420 228 L436 180 Q442 170 460 170 L552 170 Q585 172 608 205 L625 228 Z" fill="url(#w)" opacity=".9"/><circle cx="190" cy="330" r="46" fill="#15181d"/><circle cx="190" cy="330" r="28" fill="#c9ced6"/><circle cx="190" cy="330" r="9" fill="#6b7280"/><circle cx="610" cy="330" r="46" fill="#15181d"/><circle cx="610" cy="330" r="28" fill="#c9ced6"/><circle cx="610" cy="330" r="9" fill="#6b7280"/></g>
+<text x="770" y="36" text-anchor="end" font-family="Arial,sans-serif" font-size="15" letter-spacing="2" fill="#9ca3af">DEMO IMAGE · PICKUP</text>
 </svg>

@@ -47,7 +47,7 @@ export function AgentAvatar({ agent, size = 56 }: { agent: Agent; size?: number 
     .map((w) => w[0])
     .join("");
   return (
-    <span className="grid shrink-0 place-items-center rounded-full bg-ink font-serif text-lg text-champagne" style={{ width: size, height: size }} aria-hidden>
+    <span className="grid shrink-0 place-items-center rounded-full bg-ink text-lg text-champagne" style={{ width: size, height: size }} aria-hidden>
       {initials}
     </span>
   );

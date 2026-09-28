@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CarGrid } from "@/components/cars/CarCard";
+import { CarImage } from "@/components/cars/CarImage";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { TikTokEmbed } from "@/components/site/TikTokEmbed";
 import { DocIcon, SearchIcon, ShieldIcon, StoreIcon, UsersIcon, WrenchIcon } from "@/components/ui/Icons";
@@ -11,6 +12,7 @@ import { listedStock, makeFacets, MONTHLY_BANDS, toSummary } from "@/lib/data/qu
 import { BODY_TYPES } from "@/lib/data/schema";
 import { getArticles, CATEGORIES } from "@/lib/guide";
 import { STATES } from "@/lib/states";
+import { carAlt, formatRM } from "@/lib/format";
 
 export const revalidate = 300;
 
@@ -30,6 +32,7 @@ export default async function HomePage() {
   const featured = (listed.filter((c) => c.featured).length >= 4 ? listed.filter((c) => c.featured) : listed).slice(0, 8);
   const makes = makeFacets(listed);
   const stateSlugs = new Set(listed.map((c) => c.stateSlug));
+  const hero = featured[0];
 
   return (
     <>
@@ -43,86 +46,125 @@ export default async function HomePage() {
         }}
       />
       {/* Hero */}
-      <section className="border-b border-line bg-gradient-to-b from-paper-2 to-paper">
-        <div className="container-page py-10 sm:py-16">
-          <p className="eyebrow">{BRAND_TAGLINE} · Kereta recond Malaysia</p>
-          <h1 className="mt-3 max-w-3xl text-5xl leading-[1.05] sm:text-6xl">Find your recond car. Book a viewing today.</h1>
-          <p className="mt-4 max-w-2xl text-lg text-ink-2">
-            {listed.length}+ auction-sheet verified recond cars from Japan and the UK, at {data.showrooms.length > 9 ? `${data.showrooms.length}` : "10+"} showrooms with agents across Malaysia.
-          </p>
+      <section className="relative overflow-hidden border-b border-line bg-gradient-to-b from-paper-2 to-paper">
+        <div className="container-page grid items-center gap-10 py-10 sm:py-14 lg:grid-cols-[1.05fr_1fr] lg:py-20">
+          <div>
+            <p className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3 py-1 text-xs font-semibold text-ink-2 shadow-sm">
+              <span className="h-2 w-2 rounded-full bg-trust" aria-hidden /> {BRAND_TAGLINE} · {listed.length} cars in stock today
+            </p>
+            <h1 className="mt-5 text-[2.6rem] leading-[1.05] sm:text-6xl">
+              Recond cars you can <span className="text-gold">trust</span>.
+            </h1>
+            <p className="mt-4 max-w-xl text-lg text-ink-2">
+              Every car comes with its original Japanese auction sheet, a full inspection and warranty. See it at a showroom near you, or chat with your local agent on WhatsApp.
+            </p>
 
-          <form action="/cars" method="get" role="search" className="mt-6 max-w-3xl rounded-2xl border border-line bg-card p-3 shadow-sm sm:p-4">
-            <label className="relative block">
-              <span className="sr-only">Search cars</span>
-              <SearchIcon className="pointer-events-none absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 text-muted" />
-              <input
-                name="q"
-                type="search"
-                enterKeyHint="search"
-                placeholder="Search Alphard, Harrier, BMW…"
-                className="field h-14 pl-12 text-lg"
-              />
-            </label>
-            <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
-              <label>
-                <span className="sr-only">Budget</span>
-                <select name="pmax" className="field" defaultValue="">
-                  <option value="">Any budget</option>
-                  {BUDGET_OPTIONS.map((b) => (
-                    <option key={b} value={b * 1000}>
-                      Under RM{b}k
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                <span className="sr-only">Body type</span>
-                <select name="body" className="field" defaultValue="">
-                  <option value="">Any body type</option>
-                  {BODY_TYPES.map((b) => (
-                    <option key={b} value={b.toLowerCase()}>
-                      {b}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                <span className="sr-only">State</span>
-                <select name="state" className="field" defaultValue="">
-                  <option value="">All states</option>
-                  {STATES.filter((s) => stateSlugs.has(s.slug)).map((s) => (
-                    <option key={s.slug} value={s.slug}>
-                      {s.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <button type="submit" className="btn btn-primary col-span-2 sm:col-span-1">
-                Search cars
-              </button>
-            </div>
-          </form>
-          <ul className="mt-4 flex flex-wrap gap-2 text-sm">
-            {["Alphard", "Vellfire", "Harrier", "Civic Type R", "Porsche"].map((q) => (
-              <li key={q}>
-                <Link href={`/cars?q=${encodeURIComponent(q)}`} className="chip">
-                  {q}
-                </Link>
-              </li>
-            ))}
-          </ul>
+            <form action="/cars" method="get" role="search" className="mt-7 rounded-2xl border border-line bg-white p-2 shadow-[0_20px_40px_-24px_rgba(14,17,22,0.35)]">
+              <div className="flex flex-col gap-2 sm:flex-row">
+                <label className="relative flex-1">
+                  <span className="sr-only">Search cars</span>
+                  <SearchIcon className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted" />
+                  <input name="q" type="search" enterKeyHint="search" placeholder="Search Alphard, Harrier, BMW…" className="field h-13 border-0 pl-12 text-base focus:outline-none" />
+                </label>
+                <button type="submit" className="btn btn-primary h-13 px-7">
+                  Search
+                </button>
+              </div>
+              <div className="grid grid-cols-3 gap-2 border-t border-line pt-2">
+                <label>
+                  <span className="sr-only">Budget</span>
+                  <select name="pmax" className="field border-0 bg-paper-2 text-sm" defaultValue="">
+                    <option value="">Budget</option>
+                    {BUDGET_OPTIONS.map((b) => (
+                      <option key={b} value={b * 1000}>
+                        Under RM{b}k
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  <span className="sr-only">Body type</span>
+                  <select name="body" className="field border-0 bg-paper-2 text-sm" defaultValue="">
+                    <option value="">Type</option>
+                    {BODY_TYPES.map((b) => (
+                      <option key={b} value={b.toLowerCase()}>
+                        {b}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  <span className="sr-only">State</span>
+                  <select name="state" className="field border-0 bg-paper-2 text-sm" defaultValue="">
+                    <option value="">State</option>
+                    {STATES.filter((s) => stateSlugs.has(s.slug)).map((s) => (
+                      <option key={s.slug} value={s.slug}>
+                        {s.name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+            </form>
+            <ul className="mt-4 flex flex-wrap items-center gap-2 text-sm">
+              <li className="text-muted">Popular:</li>
+              {["Alphard", "Vellfire", "Harrier", "Civic Type R", "Porsche"].map((q) => (
+                <li key={q}>
+                  <Link href={`/cars?q=${encodeURIComponent(q)}`} className="rounded-full bg-white px-3 py-1.5 font-medium shadow-sm ring-1 ring-line hover:ring-ink">
+                    {q}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {hero && (
+            <Link href={`/cars/${hero.slug}`} className="group relative hidden lg:block" aria-label={`${hero.year_manufactured} ${hero.title}`}>
+              <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-paper-2 shadow-[0_30px_60px_-30px_rgba(14,17,22,0.45)]">
+                <CarImage src={hero.photos[0]} alt={carAlt({ year: hero.year_manufactured, make: hero.make, model: hero.model, colour: hero.colour })} fill priority sizes="45vw" className="object-cover transition duration-700 group-hover:scale-[1.03]" />
+              </div>
+              <div className="absolute -bottom-5 left-6 right-6 flex items-center justify-between gap-4 rounded-2xl bg-white p-4 shadow-lg ring-1 ring-line">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-muted">Featured · #{hero.code}</p>
+                  <p className="font-bold">
+                    {hero.year_manufactured} {hero.make} {hero.model} {hero.variant}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-xl font-extrabold tnum">{formatRM(hero.price_rm)}</p>
+                  {hero.grade && <p className="text-xs font-semibold text-trust">Grade {hero.grade} · verified</p>}
+                </div>
+              </div>
+            </Link>
+          )}
         </div>
       </section>
 
-      {/* Trust strip */}
-      <section aria-label="Why buy with us" className="border-b border-line bg-card">
-        <ul className="container-page no-scrollbar flex gap-6 overflow-x-auto py-5 lg:grid lg:grid-cols-5">
+      {/* Trust stats */}
+      <section aria-label="Why buy with us" className="border-b border-line bg-white">
+        <dl className="container-page grid grid-cols-2 gap-y-6 py-8 md:grid-cols-4">
+          {[
+            { k: `${listed.length}+`, v: "cars in stock, updated daily" },
+            { k: data.showrooms.length > 9 ? String(data.showrooms.length) : "10+", v: "showrooms nationwide" },
+            { k: "16", v: "states covered by our agents" },
+            { k: "100%", v: "with original auction sheet" },
+          ].map((x) => (
+            <div key={x.v} className="px-2">
+              <dt className="sr-only">{x.v}</dt>
+              <dd className="text-3xl font-extrabold tracking-tight tnum sm:text-4xl">{x.k}</dd>
+              <dd className="mt-1 text-sm text-muted">{x.v}</dd>
+            </div>
+          ))}
+        </dl>
+        <ul className="container-page no-scrollbar flex gap-3 overflow-x-auto pb-8 lg:grid lg:grid-cols-5">
           {TRUST.map(({ icon: Icon, title, text }) => (
-            <li key={title} className="flex min-w-56 items-start gap-3">
-              <Icon className="mt-0.5 h-6 w-6 shrink-0 text-gold" />
+            <li key={title} className="flex min-w-60 items-start gap-3 rounded-2xl bg-paper-2 p-4">
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-trust-bg text-trust">
+                <Icon className="h-5 w-5" />
+              </span>
               <div>
-                <p className="font-semibold">{title}</p>
-                <p className="text-sm text-muted">{text}</p>
+                <p className="text-sm font-bold">{title}</p>
+                <p className="text-xs text-muted">{text}</p>
               </div>
             </li>
           ))}
@@ -132,7 +174,7 @@ export default async function HomePage() {
       {/* Featured */}
       <section className="container-page py-12" aria-labelledby="featured">
         <div className="mb-5 flex items-end justify-between gap-4">
-          <h2 id="featured" className="text-4xl">
+          <h2 id="featured" className="text-3xl sm:text-4xl">
             Featured stock
           </h2>
           <Link href="/cars" className="font-medium text-gold-text underline">
@@ -199,7 +241,7 @@ export default async function HomePage() {
         <div className="mb-5 flex items-end justify-between gap-4">
           <div>
             <p className="eyebrow">Recond Guide</p>
-            <h2 id="guide" className="text-4xl">
+            <h2 id="guide" className="text-3xl sm:text-4xl">
               Know before you buy
             </h2>
           </div>
@@ -212,7 +254,7 @@ export default async function HomePage() {
             <li key={a.slug}>
               <Link href={`/guide/${a.slug}`} className="block h-full rounded-xl border border-line bg-card p-5 hover:border-gold">
                 <p className="eyebrow">{CATEGORIES.find((c) => c.slug === a.category)?.name}</p>
-                <p className="mt-2 font-serif text-2xl font-semibold leading-tight">{a.title}</p>
+                <p className="mt-2 text-2xl font-semibold leading-tight">{a.title}</p>
                 <p className="mt-2 line-clamp-3 text-sm text-ink-2">{a.description}</p>
               </Link>
             </li>
@@ -223,7 +265,7 @@ export default async function HomePage() {
       {/* Deliveries + TikTok */}
       <section className="border-y border-line bg-card py-12" aria-labelledby="happy">
         <div className="container-page">
-          <h2 id="happy" className="text-4xl">
+          <h2 id="happy" className="text-3xl sm:text-4xl">
             Delivered to happy owners
           </h2>
           <ul className="no-scrollbar -mx-4 mt-5 flex gap-3 overflow-x-auto px-4 pb-2">
@@ -253,7 +295,7 @@ export default async function HomePage() {
       </section>
 
       {/* Private Sourcing teaser */}
-      <section className="bg-night text-[#f1ead9]" aria-labelledby="private">
+      <section className="theme-private bg-night text-[#f1ead9]" aria-labelledby="private">
         <div className="container-page grid items-center gap-8 py-16 md:grid-cols-2">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-champagne">Private Sourcing</p>
@@ -272,7 +314,7 @@ export default async function HomePage() {
       </section>
 
       <section className="container-page py-12 text-center">
-        <h2 className="text-4xl">Can&rsquo;t find it in stock?</h2>
+        <h2 className="text-3xl sm:text-4xl">Can&rsquo;t find it in stock?</h2>
         <p className="mx-auto mt-2 max-w-xl text-ink-2">We buy from many APs every week. Tell us the model, budget and year, and we will find it for you.</p>
         <Link href="/find-me-a-car" className="btn btn-primary mt-5">
           Find me a car

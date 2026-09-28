@@ -290,7 +290,7 @@ export function StockExplorer({
           </>
         ) : (
           <div className="rounded-xl border border-dashed border-line bg-card p-8 text-center">
-            <p className="font-serif text-2xl">No exact match in stock today.</p>
+            <p className="text-2xl">No exact match in stock today.</p>
             <p className="mt-2 text-ink-2">Stock changes daily and we source from many APs. Tell us what you want and we will find it.</p>
             <div className="mt-4 flex flex-wrap justify-center gap-2">
               <Link href="/find-me-a-car" className="btn btn-primary">

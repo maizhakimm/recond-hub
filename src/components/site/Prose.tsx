@@ -12,7 +12,7 @@ export function ProsePage({ title, path, intro, children }: { title: string; pat
       />
       <h1 className="text-4xl sm:text-5xl">{title}</h1>
       {intro && <p className="mt-2 text-lg text-ink-2">{intro}</p>}
-      <div className="prose prose-stone mt-8 max-w-none prose-headings:font-serif prose-a:text-gold-text">{children}</div>
+      <div className="prose prose-stone mt-8 max-w-none prose-headings:prose-a:text-gold-text">{children}</div>
     </div>
   );
 }

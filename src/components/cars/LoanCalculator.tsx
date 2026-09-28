@@ -155,16 +155,16 @@ export function LoanCalculator({
 
         <div className="flex flex-col gap-4">
           <div className="rounded-lg bg-ink p-5 text-paper">
-            <p className="text-sm text-[#d8cfbd]">Estimated monthly instalment</p>
+            <p className="text-sm text-[#c5cad3]">Estimated monthly instalment</p>
             <p className="mt-1 text-4xl font-bold tnum" aria-live="polite">
               {formatRM(result.monthly)}
             </p>
             <dl className="mt-4 grid grid-cols-2 gap-2 text-sm tnum">
-              <dt className="text-[#d8cfbd]">Loan amount</dt>
+              <dt className="text-[#c5cad3]">Loan amount</dt>
               <dd className="text-right">{formatRM(result.loan)}</dd>
-              <dt className="text-[#d8cfbd]">Total interest</dt>
+              <dt className="text-[#c5cad3]">Total interest</dt>
               <dd className="text-right">{formatRM(result.totalInterest)}</dd>
-              <dt className="text-[#d8cfbd]">Total payable</dt>
+              <dt className="text-[#c5cad3]">Total payable</dt>
               <dd className="text-right">{formatRM(result.totalPayable)}</dd>
             </dl>
           </div>
@@ -175,7 +175,7 @@ export function LoanCalculator({
       </div>
 
       <fieldset className="mt-6 border-t border-line pt-5">
-        <legend className="font-serif text-xl font-semibold">Can I get this loan?</legend>
+        <legend className="text-xl font-semibold">Can I get this loan?</legend>
         <div className="mt-3 grid gap-3 sm:grid-cols-3">
           <div>
             <label className="label" htmlFor={`${id}-salary`}>

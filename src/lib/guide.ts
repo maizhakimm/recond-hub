@@ -29,6 +29,9 @@ const frontmatter = z.object({
   makes: lower,
   models: lower,
   body_types: lower,
+  price_min: z.number().optional(),
+  price_max: z.number().optional(),
+  cta: z.enum(["whatsapp", "private"]).default("whatsapp"),
   faqs: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
 });
 
@@ -79,10 +82,15 @@ export async function getArticle(slug: string): Promise<Article | undefined> {
   return (await getArticles()).find((a) => a.slug === slug);
 }
 
-/** Stock embedded in an article: matches on model first, then make, then body type. */
+/** Stock embedded in an article: matches on model first, then make, then body type, then price band. */
 export function matchStock(a: ArticleMeta, cars: Car[], limit = 4): Car[] {
+  const hasBand = a.price_min !== undefined || a.price_max !== undefined;
+  const inBand = (c: Car) => hasBand && c.price_rm >= (a.price_min ?? 0) && c.price_rm <= (a.price_max ?? Infinity);
   const score = (c: Car) =>
-    (a.models.includes(c.modelSlug) ? 4 : 0) + (a.makes.includes(c.makeSlug) ? 2 : 0) + (a.body_types.includes(c.body_type.toLowerCase()) ? 1 : 0);
+    (a.models.includes(c.modelSlug) ? 4 : 0) +
+    (a.makes.includes(c.makeSlug) ? 2 : 0) +
+    (a.body_types.includes(c.body_type.toLowerCase()) ? 1 : 0) +
+    (inBand(c) ? 1.5 : 0);
   return cars
     .filter((c) => c.status !== "Sold" && score(c) > 0)
     .sort((x, y) => score(y) - score(x))

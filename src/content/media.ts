@@ -26,3 +26,14 @@ export const PRIVATE_DELIVERIES: PrivateDelivery[] = [
   { image: "/sample/exotic.svg", title: "McLaren 750S", note: "Volcano Orange · Penang" },
   { image: "/sample/exotic.svg", title: "Porsche 911 GT3 RS", note: "Weissach package · Selangor" },
 ];
+
+/** Optional full-screen hero video for /private (MP4 URL, muted autoplay). Leave empty to use PRIVATE_HERO_IMAGE. */
+export const PRIVATE_HERO_VIDEO = "";
+export const PRIVATE_HERO_IMAGE = "/sample/exotic.svg";
+
+/** Real customer reviews only. Leave empty until you have them; the section hides itself. */
+export type Review = { name: string; car: string; text: string; source?: string };
+export const REVIEWS: Review[] = [];
+
+/** Banks you actually have financing arrangements with. The section hides itself when empty. */
+export const FINANCING_PARTNERS: string[] = [];

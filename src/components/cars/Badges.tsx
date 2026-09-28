@@ -11,7 +11,7 @@ export function GradeBadge({ grade, large = false }: { grade: string; large?: bo
   if (!grade) return null;
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-md border border-gold/40 bg-card font-semibold text-gold-text tnum ${large ? "px-3 py-1.5 text-base" : "px-2 py-0.5 text-xs"}`}
+      className={`inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-md border border-gold/40 bg-card font-semibold text-gold-text tnum ${large ? "px-3 py-1.5 text-base" : "px-2 py-0.5 text-xs"}`}
       title="Japanese auction grade"
     >
       Grade {grade}

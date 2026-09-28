@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { Modal } from "@/components/ui/Modal";
 import { DocIcon } from "@/components/ui/Icons";
@@ -26,9 +27,9 @@ export function AuctionSheet({ url, code }: { url: string; code: string }) {
         </div>
         <p className="mt-3 text-sm text-ink-2">
           Not sure how to read it? See our guide:{" "}
-          <a className="font-medium text-gold-text underline" href="/guide/how-to-read-japanese-auction-sheet">
+          <Link className="font-medium text-gold-text underline" href="/guide/how-to-read-japanese-auction-sheet">
             How to read a Japanese auction sheet
-          </a>
+          </Link>
           .
         </p>
       </Modal>

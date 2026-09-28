@@ -48,8 +48,8 @@ export function CarCard({ car, priority = false }: { car: CarSummary; priority?:
         <TrustRow compact />
         <div className="mt-auto flex items-end justify-between gap-3 pt-2">
           <div>
-            <p className="text-xl font-bold tnum">{car.status === "Sold" ? "Sold" : formatRM(car.price)}</p>
-            {car.status !== "Sold" && <p className="text-xs text-muted tnum">from {formatRM(car.monthly)}/month</p>}
+            <p className="whitespace-nowrap text-xl font-bold tnum">{car.status === "Sold" ? "Sold" : formatRM(car.price)}</p>
+            {car.status !== "Sold" && <p className="whitespace-nowrap text-xs text-muted tnum">from {formatRM(car.monthly)}/month</p>}
           </div>
           {car.status !== "Sold" && (
             <WhatsAppButton
@@ -67,9 +67,9 @@ export function CarCard({ car, priority = false }: { car: CarSummary; priority?:
   );
 }
 
-export function CarGrid({ cars, priorityFirst = 0 }: { cars: CarSummary[]; priorityFirst?: number }) {
+export function CarGrid({ cars, priorityFirst = 0, narrow = false }: { cars: CarSummary[]; priorityFirst?: number; narrow?: boolean }) {
   return (
-    <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <ul className={`grid grid-cols-1 gap-4 sm:grid-cols-2 ${narrow ? "xl:grid-cols-3" : "lg:grid-cols-3 xl:grid-cols-4"}`}>
       {cars.map((c, i) => (
         <li key={c.code}>
           <CarCard car={c} priority={i < priorityFirst} />

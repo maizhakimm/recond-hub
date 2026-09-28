@@ -7,7 +7,6 @@ import { listedStock } from "@/lib/data/queries";
 import { BODY_TYPES } from "@/lib/data/schema";
 
 export const revalidate = 300;
-export const dynamicParams = false;
 
 export function generateStaticParams() {
   return BODY_TYPES.map((b) => ({ type: b.toLowerCase() }));

@@ -14,7 +14,7 @@ export function Explorer(props: { cars: CarSummary[]; locked?: Partial<Filters>;
       fallback={
         <div>
           <p className="mb-3 text-sm text-muted">{props.cars.length} cars found</p>
-          <CarGrid cars={props.cars.slice(0, 24)} priorityFirst={2} />
+          <CarGrid cars={props.cars.slice(0, 24)} priorityFirst={2} narrow />
         </div>
       }
     >

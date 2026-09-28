@@ -72,8 +72,8 @@ export function CarCTAs({ car, showrooms, defaultShowroomId }: { car: CtaCar; sh
       {/* Phone: sticky bottom bar, all four CTAs within thumb reach */}
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-paper/95 px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur md:hidden">
         <div className="grid grid-cols-[1.4fr_1fr_1fr_1fr] gap-1.5">
-          <button type="button" className="btn btn-primary px-2 text-sm" onClick={openBooking}>
-            <CalendarIcon className="h-4 w-4" /> Book viewing
+          <button type="button" className="btn btn-primary whitespace-nowrap px-2 text-sm" onClick={openBooking}>
+            Book viewing
           </button>
           <button type="button" className="btn btn-wa flex-col gap-0 px-1 py-1 text-[11px]" onClick={ask} aria-label="Ask on WhatsApp">
             <WhatsAppIcon className="h-5 w-5" /> WhatsApp

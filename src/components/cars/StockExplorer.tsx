@@ -26,13 +26,15 @@ function searchText(c: CarSummary) {
   return `${c.code} ${c.make} ${c.model} ${c.variant} ${c.year} ${c.body} ${c.colour} ${c.state} ${c.fuel} ${c.transmission} ${compact}`.toLowerCase();
 }
 
-/** Fuse extended search: tokens are ANDed, numbers must appear exactly ("2021"), words are fuzzy ("alfard"). */
+/** Fuse extended search: tokens are ANDed; tokens with digits must appear exactly ("2021", "rh109", "gr86"); words are fuzzy ("alfard"). */
 function toFuseQuery(q: string) {
   return q
     .toLowerCase()
     .split(/\s+/)
     .filter(Boolean)
-    .map((t) => (/^\d+$/.test(t) ? `'${t}` : t.replace(/[|!^$=']/g, "")))
+    .map((t) => t.replace(/[|!^$=']/g, ""))
+    .filter(Boolean)
+    .map((t) => (/\d/.test(t) ? `'${t}` : t))
     .join(" ");
 }
 
@@ -57,7 +59,7 @@ export function StockExplorer({
     () =>
       new Fuse(
         cars.map((c) => ({ c, text: searchText(c) })),
-        { keys: ["text"], threshold: 0.3, ignoreLocation: true, useExtendedSearch: true },
+        { keys: ["text"], threshold: 0.4, ignoreLocation: true, useExtendedSearch: true },
       ),
     [cars],
   );
@@ -277,7 +279,7 @@ export function StockExplorer({
 
         {results.length ? (
           <>
-            <CarGrid cars={results.slice(0, limit)} priorityFirst={2} />
+            <CarGrid cars={results.slice(0, limit)} priorityFirst={2} narrow />
             {results.length > limit && (
               <div className="mt-6 text-center">
                 <button type="button" className="btn btn-outline" onClick={() => setLimit((l) => l + PAGE)}>

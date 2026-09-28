@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ebe6da"/><stop offset="1" stop-color="#d9d1bf"/></linearGradient>
+<linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4a443b"/><stop offset="1" stop-color="#1c1915"/></linearGradient></defs>
+<rect width="800" height="600" fill="url(#g)"/>
+<ellipse cx="400" cy="385" rx="360" ry="22" fill="#1c1915" opacity=".12"/>
+<g transform="translate(0,20)"><path d="M50 330 L55 250 Q60 230 100 228 L380 228 L400 170 Q410 155 440 155 L560 155 Q600 158 630 200 L660 235 Q730 245 745 280 L748 330 Z" fill="url(#b)"/><circle cx="190" cy="330" r="46" fill="#1c1915"/><circle cx="190" cy="330" r="22" fill="#8a6a2b"/><circle cx="610" cy="330" r="46" fill="#1c1915"/><circle cx="610" cy="330" r="22" fill="#8a6a2b"/></g>
+<text x="400" y="500" text-anchor="middle" font-family="Georgia,serif" font-size="34" fill="#4a443b">Pickup</text>
+<text x="400" y="540" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" letter-spacing="4" fill="#735621">SAMPLE PHOTO</text>
+</svg>

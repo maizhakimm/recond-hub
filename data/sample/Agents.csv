@@ -1,0 +1,6 @@
+agent_id,name,state,showroom_id,whatsapp,photo,active
+A01,Aina Rahman,Johor,SR02,60133333301,,TRUE
+A02,Kelvin Tan,Penang,SR03,60133333302,,TRUE
+A03,Hafiz Ismail,Perak,,60133333303,,TRUE
+H01,Syafiq Hamdan,HQ,SR01,60133333311,,TRUE
+H02,Mei Ling Wong,HQ,SR01,60133333312,,TRUE

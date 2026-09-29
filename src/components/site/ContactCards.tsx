@@ -6,7 +6,7 @@ import { WhatsAppButton } from "@/components/cars/WhatsAppButton";
 
 export function ShowroomCard({ s, carCode }: { s: Showroom; carCode?: string }) {
   return (
-    <div className="rounded-xl border border-line bg-card p-4">
+    <div className="rounded-md border border-line bg-card p-4">
       <p className="eyebrow">Showroom</p>
       <h3 className="mt-1 font-sans text-lg font-semibold tracking-normal">{s.name}</h3>
       <p className="mt-2 flex gap-2 text-sm text-ink-2">
@@ -55,7 +55,7 @@ export function AgentAvatar({ agent, size = 56 }: { agent: Agent; size?: number 
 
 export function AgentCard({ agent, carCode, label = "Your local agent" }: { agent: Agent; carCode?: string; label?: string }) {
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-line bg-card p-4">
+    <div className="flex items-center gap-3 rounded-md border border-line bg-card p-4">
       <AgentAvatar agent={agent} />
       <div className="min-w-0 flex-1">
         <p className="eyebrow">{label}</p>

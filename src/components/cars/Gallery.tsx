@@ -37,7 +37,7 @@ export function Gallery({ photos, alt, sold = false }: { photos: string[]; alt: 
 
   return (
     <div>
-      <div className="relative overflow-hidden rounded-xl bg-paper-2">
+      <div className="relative overflow-hidden rounded-md bg-paper-2">
         <div ref={track} className="no-scrollbar flex aspect-[4/3] snap-x snap-mandatory overflow-x-auto" aria-roledescription="carousel" aria-label="Car photos">
           {list.map((src, i) => (
             <button

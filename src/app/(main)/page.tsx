@@ -47,19 +47,19 @@ export default async function HomePage() {
       />
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-line bg-gradient-to-b from-paper-2 to-paper">
-        <div className="container-page grid items-center gap-10 py-10 sm:py-14 lg:grid-cols-[1.05fr_1fr] lg:py-20">
-          <div>
+        <div className="container-page grid items-center gap-10 py-8 sm:py-14 lg:grid-cols-[1.05fr_1fr] lg:py-20">
+          <div className="min-w-0">
             <p className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3 py-1 text-xs font-semibold text-ink-2 shadow-sm">
               <span className="h-2 w-2 rounded-full bg-trust" aria-hidden /> {BRAND_TAGLINE} · {listed.length} cars in stock today
             </p>
-            <h1 className="mt-5 text-[2.6rem] leading-[1.05] sm:text-6xl">
+            <h1 className="mt-4 text-[2.35rem] leading-[1.05] sm:mt-5 sm:text-6xl">
               Recond cars you can <span className="text-gold">trust</span>.
             </h1>
-            <p className="mt-4 max-w-xl text-lg text-ink-2">
+            <p className="mt-3 max-w-xl text-base text-ink-2 sm:mt-4 sm:text-lg">
               Every car comes with its original Japanese auction sheet, a full inspection and warranty. See it at a showroom near you, or chat with your local agent on WhatsApp.
             </p>
 
-            <form action="/cars" method="get" role="search" className="mt-7 rounded-2xl border border-line bg-white p-2 shadow-[0_20px_40px_-24px_rgba(14,17,22,0.35)]">
+            <form action="/cars" method="get" role="search" className="mt-7 rounded-md border border-line bg-white p-2 shadow-[0_20px_40px_-24px_rgba(14,17,22,0.35)]">
               <div className="flex flex-col gap-2 sm:flex-row">
                 <label className="relative flex-1">
                   <span className="sr-only">Search cars</span>
@@ -106,11 +106,11 @@ export default async function HomePage() {
                 </label>
               </div>
             </form>
-            <ul className="mt-4 flex flex-wrap items-center gap-2 text-sm">
-              <li className="text-muted">Popular:</li>
+            <ul className="no-scrollbar -mx-4 mt-4 flex items-center gap-2 overflow-x-auto px-4 text-sm sm:mx-0 sm:flex-wrap sm:px-0">
+              <li className="shrink-0 text-muted">Popular:</li>
               {["Alphard", "Vellfire", "Harrier", "Civic Type R", "Porsche"].map((q) => (
-                <li key={q}>
-                  <Link href={`/cars?q=${encodeURIComponent(q)}`} className="rounded-full bg-white px-3 py-1.5 font-medium shadow-sm ring-1 ring-line hover:ring-ink">
+                <li key={q} className="shrink-0">
+                  <Link href={`/cars?q=${encodeURIComponent(q)}`} className="inline-flex min-h-9 items-center rounded-full bg-white px-3.5 font-medium shadow-sm ring-1 ring-line hover:ring-ink">
                     {q}
                   </Link>
                 </li>
@@ -120,10 +120,10 @@ export default async function HomePage() {
 
           {hero && (
             <Link href={`/cars/${hero.slug}`} className="group relative hidden lg:block" aria-label={`${hero.year_manufactured} ${hero.title}`}>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-paper-2 shadow-[0_30px_60px_-30px_rgba(14,17,22,0.45)]">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-md bg-paper-2 shadow-[0_30px_60px_-30px_rgba(14,17,22,0.45)]">
                 <CarImage src={hero.photos[0]} alt={carAlt({ year: hero.year_manufactured, make: hero.make, model: hero.model, colour: hero.colour })} fill priority sizes="45vw" className="object-cover transition duration-700 group-hover:scale-[1.03]" />
               </div>
-              <div className="absolute -bottom-5 left-6 right-6 flex items-center justify-between gap-4 rounded-2xl bg-white p-4 shadow-lg ring-1 ring-line">
+              <div className="absolute -bottom-5 left-6 right-6 flex items-center justify-between gap-4 rounded-md bg-white p-4 shadow-lg ring-1 ring-line">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wider text-muted">Featured · #{hero.code}</p>
                   <p className="font-bold">
@@ -156,10 +156,10 @@ export default async function HomePage() {
             </div>
           ))}
         </dl>
-        <ul className="container-page no-scrollbar flex gap-3 overflow-x-auto pb-8 lg:grid lg:grid-cols-5">
+        <ul className="container-page grid gap-2 pb-8 sm:grid-cols-2 sm:gap-3 lg:grid-cols-5">
           {TRUST.map(({ icon: Icon, title, text }) => (
-            <li key={title} className="flex min-w-60 items-start gap-3 rounded-2xl bg-paper-2 p-4">
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-trust-bg text-trust">
+            <li key={title} className="flex items-center gap-3 rounded-md bg-paper-2 p-3 sm:items-start sm:p-4">
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-trust-bg text-trust">
                 <Icon className="h-5 w-5" />
               </span>
               <div>
@@ -252,7 +252,7 @@ export default async function HomePage() {
         <ul className="grid gap-4 md:grid-cols-3">
           {articles.slice(0, 3).map((a) => (
             <li key={a.slug}>
-              <Link href={`/guide/${a.slug}`} className="block h-full rounded-xl border border-line bg-card p-5 hover:border-gold">
+              <Link href={`/guide/${a.slug}`} className="block h-full rounded-md border border-line bg-card p-5 hover:border-gold">
                 <p className="eyebrow">{CATEGORIES.find((c) => c.slug === a.category)?.name}</p>
                 <p className="mt-2 text-2xl font-semibold leading-tight">{a.title}</p>
                 <p className="mt-2 line-clamp-3 text-sm text-ink-2">{a.description}</p>
@@ -271,7 +271,7 @@ export default async function HomePage() {
           <ul className="no-scrollbar -mx-4 mt-5 flex gap-3 overflow-x-auto px-4 pb-2">
             {DELIVERIES.map((d, i) => (
               <li key={i} className="w-64 shrink-0">
-                <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-paper-2">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-md bg-paper-2">
                   <Image src={d.image} alt={`Customer delivery: ${d.caption}`} fill sizes="16rem" className="object-cover" unoptimized={d.image.endsWith(".svg")} />
                 </div>
                 <p className="mt-2 text-sm text-ink-2">{d.caption}</p>

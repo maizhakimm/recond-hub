@@ -93,7 +93,7 @@ export function LoanCalculator({
   };
 
   return (
-    <div className="rounded-xl border border-line bg-card p-4 sm:p-6" onInput={onUse}>
+    <div className="rounded-md border border-line bg-card p-4 sm:p-6" onInput={onUse}>
       <div className="grid gap-6 md:grid-cols-2">
         <div className="space-y-4">
           <div>
@@ -129,7 +129,7 @@ export function LoanCalculator({
               Minimum {s.minDownpaymentPct}% ({formatRM(minDp)}){dpTooLow ? ", calculated at the minimum" : ""}
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid gap-3 sm:grid-cols-2">
             <div>
               <label className="label" htmlFor={`${id}-rate`}>
                 Interest (% flat p.a.)

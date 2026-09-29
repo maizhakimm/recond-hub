@@ -13,7 +13,7 @@ export function TikTokEmbed({ video }: { video: TikTokVideo }) {
       <iframe
         src={`https://www.tiktok.com/embed/v2/${video.id}`}
         title={video.caption}
-        className="aspect-[9/16] w-full rounded-xl border-0 bg-night"
+        className="aspect-[9/16] w-full rounded-md border-0 bg-night"
         allow="encrypted-media; fullscreen"
         loading="lazy"
       />
@@ -26,7 +26,7 @@ export function TikTokEmbed({ video }: { video: TikTokVideo }) {
       <span className="absolute inset-x-0 bottom-0 p-4 text-left text-sm font-medium">{video.caption}</span>
     </>
   );
-  const cls = "relative flex aspect-[9/16] w-full items-center justify-center rounded-xl bg-gradient-to-b from-night-3 to-night text-paper";
+  const cls = "relative flex aspect-[9/16] w-full items-center justify-center rounded-md bg-gradient-to-b from-night-3 to-night text-paper";
   return video.id ? (
     <button type="button" onClick={() => setOn(true)} className={cls} aria-label={`Play TikTok: ${video.caption}`}>
       {inner}

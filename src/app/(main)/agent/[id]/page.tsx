@@ -44,7 +44,7 @@ export default async function AgentPage({ params }: PageProps<"/agent/[id]">) {
   const shareUrl = `${SITE_URL}/agent/${agent.agent_id.toLowerCase()}?ref=${agent.agent_id}`;
   return (
     <div className="container-page py-8">
-      <div className="flex flex-col items-start gap-5 rounded-2xl border border-line bg-card p-6 sm:flex-row sm:items-center">
+      <div className="flex flex-col items-start gap-5 rounded-md border border-line bg-card p-6 sm:flex-row sm:items-center">
         <AgentAvatar agent={agent} size={96} />
         <div className="flex-1">
           <p className="eyebrow">{isHq ? "HQ sales advisor" : `${BRAND} agent · ${agent.state}`}</p>
@@ -69,7 +69,7 @@ export default async function AgentPage({ params }: PageProps<"/agent/[id]">) {
         </Link>
       </section>
 
-      <section className="mt-10 rounded-xl border border-dashed border-line p-5">
+      <section className="mt-10 rounded-md border border-dashed border-line p-5">
         <h2 className="font-sans text-base font-semibold tracking-normal">For {agent.name.split(" ")[0]}: your personal link</h2>
         <p className="mt-1 text-sm text-ink-2">Share this link on TikTok, WhatsApp status or Instagram. Anyone who opens it is routed to you for 30 days.</p>
         <CopyLink url={shareUrl} />

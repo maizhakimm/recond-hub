@@ -73,7 +73,7 @@ export default async function StatePage({ params }: PageProps<"/[state]">) {
               ))}
             </div>
           ) : (
-            <p className="rounded-xl border border-dashed border-line bg-card p-5 text-ink-2">
+            <p className="rounded-md border border-dashed border-line bg-card p-5 text-ink-2">
               No showroom in {st.name} yet. Our agents and HQ can arrange viewings, video calls and delivery to {st.name}. See{" "}
               <Link href="/showrooms" className="font-medium text-gold-text underline">
                 all showrooms
@@ -93,7 +93,7 @@ export default async function StatePage({ params }: PageProps<"/[state]">) {
             ))}
           </div>
           {!agents.length && (
-            <div className="mt-4 rounded-xl bg-ink p-5 text-paper">
+            <div className="mt-4 rounded-md bg-ink p-5 text-paper">
               <p className="text-2xl">Become our agent in {st.name}</p>
               <p className="mt-1 text-sm text-[#c5cad3]">Know cars and people in {st.name}? Earn commission selling recond cars with {BRAND}&rsquo;s stock and support.</p>
               <Link href={`/become-an-agent?state=${st.slug}`} className="btn btn-gold mt-3">

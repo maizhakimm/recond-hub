@@ -65,14 +65,14 @@ export function LeadForm({ kind, fields }: { kind: Kind; fields: Field[] }) {
 
   if (done)
     return (
-      <div role="status" className="rounded-xl border border-line bg-card p-6">
+      <div role="status" className="rounded-md border border-line bg-card p-6">
         <p className="text-2xl">Thank you. We&rsquo;ve received your request.</p>
         <p className="mt-1 text-ink-2">If WhatsApp didn&rsquo;t open, message us and mention your name so we can match it.</p>
       </div>
     );
 
   return (
-    <form onSubmit={submit} noValidate className="grid gap-4 rounded-xl border border-line bg-card p-5 sm:grid-cols-2 sm:p-6">
+    <form onSubmit={submit} noValidate className="grid gap-4 rounded-md border border-line bg-card p-5 sm:grid-cols-2 sm:p-6">
       {fields.map((f) => {
         const fid = `${id}-${f.name}`;
         const common = {

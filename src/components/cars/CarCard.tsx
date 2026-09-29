@@ -11,8 +11,8 @@ export function CarCard({ car, priority = false }: { car: CarSummary; priority?:
   const name = `${car.year} ${car.make} ${car.model}`;
   const sold = car.status === "Sold";
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-card transition hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-12px_rgba(14,17,22,0.25)]">
-      <div className="relative aspect-[16/11] overflow-hidden bg-paper-2">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-md border border-line bg-card transition hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-12px_rgba(14,17,22,0.25)]">
+      <div className="relative aspect-[16/10] overflow-hidden bg-paper-2 sm:aspect-[16/11]">
         <CarImage
           src={car.cover}
           alt={carAlt(car)}
@@ -56,7 +56,7 @@ export function CarCard({ car, priority = false }: { car: CarSummary; priority?:
           </div>
           {!sold && (
             <WhatsAppButton
-              className="btn btn-wa relative z-10 h-11 w-11 rounded-full p-0 [&>span]:sr-only"
+              className="btn btn-wa relative z-10 hidden h-11 w-11 rounded-full p-0 sm:inline-flex [&>span]:sr-only"
               label={`WhatsApp about ${name} #${car.code}`}
               carCode={car.code}
               state={car.stateSlug}

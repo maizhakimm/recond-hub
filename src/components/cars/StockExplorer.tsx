@@ -238,7 +238,7 @@ export function StockExplorer({
   return (
     <div className="grid gap-6 lg:grid-cols-[17rem_1fr]">
       <aside className="hidden lg:block" aria-label="Filters">
-        <div className="sticky top-20 max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-xl border border-line bg-card p-4">{filterFields}</div>
+        <div className="sticky top-20 max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-md border border-line bg-card p-4">{filterFields}</div>
       </aside>
 
       <div className="min-w-0">
@@ -289,7 +289,7 @@ export function StockExplorer({
             )}
           </>
         ) : (
-          <div className="rounded-xl border border-dashed border-line bg-card p-8 text-center">
+          <div className="rounded-md border border-dashed border-line bg-card p-8 text-center">
             <p className="text-2xl">No exact match in stock today.</p>
             <p className="mt-2 text-ink-2">Stock changes daily and we source from many APs. Tell us what you want and we will find it.</p>
             <div className="mt-4 flex flex-wrap justify-center gap-2">

@@ -26,19 +26,19 @@ export default async function ContactPage() {
       />
       <h1 className="text-4xl sm:text-5xl">Contact us</h1>
       <div className="mt-6 grid gap-4 md:grid-cols-3">
-        <div className="rounded-xl border border-line bg-card p-5">
+        <div className="rounded-md border border-line bg-card p-5">
           <h2 className="text-2xl">WhatsApp</h2>
           <p className="mt-1 text-ink-2">Fastest way to reach us. We&rsquo;ll connect you with the agent for your state.</p>
           <WhatsAppButton className="btn btn-wa mt-4 w-full" label="Chat on WhatsApp" message={`Hi ${BRAND}, I have a question.`} />
         </div>
-        <div className="rounded-xl border border-line bg-card p-5">
+        <div className="rounded-md border border-line bg-card p-5">
           <h2 className="text-2xl">Email</h2>
           <p className="mt-1 text-ink-2">For partnerships, AP stock offers and media.</p>
           <a href={`mailto:${CONTACT_EMAIL}`} className="btn btn-outline mt-4 w-full">
             {CONTACT_EMAIL}
           </a>
         </div>
-        <div className="rounded-xl border border-line bg-card p-5">
+        <div className="rounded-md border border-line bg-card p-5">
           <h2 className="text-2xl">Visit</h2>
           <p className="mt-1 text-ink-2">{data.showrooms.length} showrooms across Malaysia.</p>
           <Link href="/showrooms" className="btn btn-outline mt-4 w-full">

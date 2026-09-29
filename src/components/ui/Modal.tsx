@@ -36,7 +36,7 @@ export function Modal({
       onClick={(e) => {
         if (e.target === ref.current) onClose();
       }}
-      className={`m-0 mt-auto max-h-[92dvh] w-full max-w-none overflow-y-auto rounded-t-2xl p-0 sm:m-auto sm:max-w-lg sm:rounded-2xl ${
+      className={`m-0 mt-auto max-h-[92dvh] w-full max-w-none overflow-y-auto rounded-t-lg p-0 sm:m-auto sm:max-w-lg sm:rounded-lg ${
         dark ? "bg-night-2 text-[#f1ead9]" : "bg-paper text-ink"
       }`}
     >

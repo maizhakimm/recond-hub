@@ -38,7 +38,7 @@ export default function WhyUsPage() {
           { icon: WrenchIcon, t: "Inspected at HQ", d: "Multi-point inspection and reconditioning before the car reaches the showroom." },
           { icon: ShieldIcon, t: "Warranty included", d: "Engine and gearbox warranty on every car. Ask your agent for the terms on a specific car." },
         ].map(({ icon: Icon, t, d }) => (
-          <div key={t} className="rounded-xl border border-line bg-card p-5">
+          <div key={t} className="rounded-md border border-line bg-card p-5">
             <Icon className="h-8 w-8 text-gold" />
             <h2 className="mt-3 text-2xl">{t}</h2>
             <p className="mt-1 text-ink-2">{d}</p>
@@ -88,7 +88,7 @@ export default function WhyUsPage() {
           </h2>
           <ul className="mt-5 grid gap-4 md:grid-cols-3">
             {REVIEWS.map((r) => (
-              <li key={r.name + r.car} className="rounded-xl border border-line bg-card p-5">
+              <li key={r.name + r.car} className="rounded-md border border-line bg-card p-5">
                 <p className="text-ink-2">&ldquo;{r.text}&rdquo;</p>
                 <p className="mt-3 text-sm font-semibold">
                   {r.name} · {r.car}

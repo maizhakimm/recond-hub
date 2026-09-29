@@ -93,7 +93,7 @@ export default async function ArticlePage({ params }: PageProps<"/guide/[slug]">
           </header>
 
           {a.toc.length > 2 && (
-            <details className="mb-6 rounded-xl border border-line bg-card p-4 lg:hidden">
+            <details className="mb-6 rounded-md border border-line bg-card p-4 lg:hidden">
               <summary className="min-h-8 cursor-pointer font-semibold">On this page</summary>
               <Toc items={a.toc} />
             </details>
@@ -117,7 +117,7 @@ export default async function ArticlePage({ params }: PageProps<"/guide/[slug]">
               <h2 id="faq" className="mb-4 text-3xl">
                 Frequently asked questions
               </h2>
-              <div className="divide-y divide-line rounded-xl border border-line bg-card">
+              <div className="divide-y divide-line rounded-md border border-line bg-card">
                 {a.faqs.map((f) => (
                   <details key={f.q} className="group p-4">
                     <summary className="flex min-h-8 cursor-pointer list-none items-center justify-between gap-4 font-semibold [&::-webkit-details-marker]:hidden">
@@ -134,7 +134,7 @@ export default async function ArticlePage({ params }: PageProps<"/guide/[slug]">
           )}
 
           {a.cta === "private" ? (
-            <section className="mt-12 rounded-2xl bg-night p-6 text-[#f1ead9] sm:p-8">
+            <section className="mt-12 rounded-md bg-night p-6 text-[#f1ead9] sm:p-8">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-champagne">Private Sourcing</p>
               <h2 className="mt-2 text-3xl text-[#f7f1e3]">Looking for something rare?</h2>
               <p className="mt-2 text-[#b9ae98]">Your request goes straight to our owner.</p>
@@ -143,7 +143,7 @@ export default async function ArticlePage({ params }: PageProps<"/guide/[slug]">
               </Link>
             </section>
           ) : (
-            <section className="mt-12 rounded-2xl bg-ink p-6 text-paper sm:p-8">
+            <section className="mt-12 rounded-md bg-ink p-6 text-paper sm:p-8">
               <h2 className="text-3xl text-paper">Questions? Ask a recond specialist.</h2>
               <p className="mt-2 text-[#c5cad3]">We reply on WhatsApp, usually within minutes during showroom hours.</p>
               <WhatsAppButton className="btn btn-wa mt-4" label="Ask on WhatsApp" message={`Hi, I read "${a.title}" and have a question.`} />

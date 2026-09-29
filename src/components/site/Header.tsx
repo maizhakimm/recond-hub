@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BRAND } from "@/lib/config";
-import { MenuIcon, SearchIcon } from "@/components/ui/Icons";
+import { SearchIcon } from "@/components/ui/Icons";
+import { MobileMenu } from "./MobileMenu";
 
 const NAV = [
   { href: "/cars", label: "Cars for sale" },
@@ -14,7 +15,7 @@ const NAV = [
 export function Logo({ dark = false }: { dark?: boolean }) {
   return (
     <Link href="/" className="flex min-h-11 items-center gap-2" aria-label={`${BRAND} home`}>
-      <span className={`grid h-9 w-9 place-items-center rounded-xl text-lg font-extrabold ${dark ? "bg-champagne text-night" : "bg-ink text-champagne"}`}>R</span>
+      <span className={`grid h-9 w-9 place-items-center rounded-md text-lg font-extrabold ${dark ? "bg-champagne text-night" : "bg-ink text-champagne"}`}>R</span>
       <span className={`text-xl font-extrabold tracking-tight ${dark ? "text-[#f1ead9]" : "text-ink"}`}>{BRAND}</span>
     </Link>
   );
@@ -44,31 +45,11 @@ export function Header() {
             </li>
           </ul>
         </nav>
-        <div className="flex items-center gap-1 lg:hidden">
+        <div className="flex items-center gap-0.5 lg:hidden">
           <Link href="/cars" className="grid h-11 w-11 place-items-center rounded-md hover:bg-paper-2" aria-label="Search cars">
             <SearchIcon />
           </Link>
-          <details className="group relative">
-            <summary className="grid h-11 w-11 cursor-pointer list-none place-items-center rounded-md hover:bg-paper-2 [&::-webkit-details-marker]:hidden" aria-label="Menu">
-              <MenuIcon />
-            </summary>
-            <nav aria-label="Mobile" className="absolute right-0 top-12 w-64 rounded-xl border border-line bg-card p-2 shadow-lg">
-              <ul>
-                {NAV.map((n) => (
-                  <li key={n.href}>
-                    <Link href={n.href} className="flex min-h-11 items-center rounded-md px-3 hover:bg-paper-2">
-                      {n.label}
-                    </Link>
-                  </li>
-                ))}
-                <li>
-                  <Link href="/private" className="mt-1 flex min-h-11 items-center rounded-md bg-night px-3 text-champagne">
-                    Private Sourcing
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </details>
+          <MobileMenu items={NAV} />
         </div>
       </div>
     </header>

@@ -100,7 +100,7 @@ export function CarDetail({ data, car, articles }: { data: SiteData; car: Car; a
       />
 
       {sold && (
-        <div role="status" className="mb-6 rounded-xl bg-ink p-5 text-paper">
+        <div role="status" className="mb-6 rounded-md bg-ink p-5 text-paper">
           <p className="text-2xl">This {car.make} {car.model} has been sold.</p>
           <p className="mt-1 text-[#c5cad3]">Good news: we have similar cars below, and we can source another one for you.</p>
           <div className="mt-3 flex flex-wrap gap-2">
@@ -161,7 +161,7 @@ export function CarDetail({ data, car, articles }: { data: SiteData; car: Car; a
             <h2 id="specs" className="mb-3 text-2xl">
               Specifications
             </h2>
-            <table className="w-full overflow-hidden rounded-xl border border-line bg-card text-sm">
+            <table className="w-full overflow-hidden rounded-md border border-line bg-card text-sm">
               <tbody>
                 {specs
                   .filter(([, v]) => v)
@@ -177,7 +177,7 @@ export function CarDetail({ data, car, articles }: { data: SiteData; car: Car; a
             </table>
           </section>
 
-          <section aria-labelledby="auction" className="rounded-xl border border-line bg-card p-4 sm:p-5">
+          <section aria-labelledby="auction" className="rounded-md border border-line bg-card p-4 sm:p-5">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <h2 id="auction" className="text-2xl">
@@ -235,7 +235,7 @@ export function CarDetail({ data, car, articles }: { data: SiteData; car: Car; a
           <ul className="grid gap-4 md:grid-cols-3">
             {articles.map((a) => (
               <li key={a.slug}>
-                <Link href={`/guide/${a.slug}`} className="block h-full rounded-xl border border-line bg-card p-5 hover:border-gold">
+                <Link href={`/guide/${a.slug}`} className="block h-full rounded-md border border-line bg-card p-5 hover:border-gold">
                   <p className="text-xl font-semibold leading-tight">{a.title}</p>
                   <p className="mt-2 line-clamp-2 text-sm text-ink-2">{a.description}</p>
                 </Link>

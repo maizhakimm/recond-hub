@@ -53,6 +53,7 @@ export function Footer() {
               ["/contact", "Contact"],
               ["/privacy", "Privacy policy (PDPA)"],
               ["/terms", "Terms"],
+              ["/credits", "Photo credits"],
             ].map(([href, label]) => (
               <li key={href}>
                 <Link href={href} className="inline-flex min-h-8 items-center hover:underline">

@@ -12,5 +12,13 @@ export function CarImage({ src, alt, ...rest }: Omit<ImageProps, "src"> & { src?
       </div>
     );
   }
-  return <Image src={src} alt={alt} unoptimized={src.endsWith(".svg")} {...rest} />;
+  const img = <Image src={src} alt={alt} unoptimized={src.endsWith(".svg")} {...rest} />;
+  // Wikimedia Commons demo photos: labelled so nobody mistakes them for real stock. Credits at /credits.
+  if (!src.startsWith("/photos/")) return img;
+  return (
+    <>
+      {img}
+      <span className="pointer-events-none absolute bottom-2 right-2 rounded bg-black/55 px-1.5 py-0.5 text-[10px] font-medium text-white">Demo photo</span>
+    </>
+  );
 }

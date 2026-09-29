@@ -300,7 +300,7 @@ export default async function HomePage() {
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-champagne">Private Sourcing</p>
             <h2 id="private" className="mt-3 text-5xl text-[#f1ead9]">
-              Ferrari. Lamborghini. McLaren. Sourced for you.
+              Bugatti. Ferrari. Lamborghini. Sourced for you.
             </h2>
             <p className="mt-4 max-w-md text-[#b9ae98]">A discreet, owner-led service for exotic and rare cars, from specification to your driveway.</p>
             <Link href="/private" className="btn mt-6 border border-champagne text-champagne hover:bg-champagne hover:text-night">
@@ -308,7 +308,8 @@ export default async function HomePage() {
             </Link>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-sm">
-            <Image src="/sample/exotic.svg" alt="Exotic car silhouette" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" unoptimized />
+            <Image src="/photos/laferrari.jpg" alt="Ferrari LaFerrari" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+            <span className="absolute bottom-2 right-2 rounded bg-black/55 px-1.5 py-0.5 text-[10px] font-medium text-white">Demo photo</span>
           </div>
         </div>
       </section>

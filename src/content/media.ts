@@ -22,15 +22,19 @@ export const TIKTOK_VIDEOS: TikTokVideo[] = [
 ];
 
 export const PRIVATE_DELIVERIES: PrivateDelivery[] = [
+  { image: "/photos/bugatti-chiron.jpg", title: "Bugatti Chiron Sport", note: "Carbon & Italian Red · Kuala Lumpur" },
+  { image: "/photos/laferrari.jpg", title: "Ferrari LaFerrari", note: "Rosso Corsa · Selangor" },
+  { image: "/photos/lambo-revuelto.jpg", title: "Lamborghini Revuelto", note: "Bianco Monocerus · Johor" },
+  { image: "/photos/mclaren-p1.jpg", title: "McLaren P1", note: "Supernova Silver · Penang" },
+  { image: "/photos/ferrari-sf90.jpg", title: "Ferrari SF90 Stradale", note: "Giallo Modena · Kuala Lumpur" },
+  { image: "/photos/lambo-aventador.jpg", title: "Lamborghini Aventador SVJ Roadster", note: "Bronzo · Selangor" },
   { image: "/photos/ferrari-296.jpg", title: "Ferrari 296 GTB", note: "Rosso Imola · Kuala Lumpur" },
   { image: "/photos/urus.jpg", title: "Lamborghini Urus Performante", note: "Verde Mantis · Johor" },
-  { image: "/photos/mclaren.jpg", title: "McLaren 750S", note: "Volcano Orange · Penang" },
-  { image: "/photos/gt3rs.jpg", title: "Porsche 911 GT3 RS", note: "Weissach package · Selangor" },
 ];
 
 /** Optional full-screen hero video for /private (MP4 URL, muted autoplay). Leave empty to use PRIVATE_HERO_IMAGE. */
 export const PRIVATE_HERO_VIDEO = "";
-export const PRIVATE_HERO_IMAGE = "/photos/ferrari-296.jpg";
+export const PRIVATE_HERO_IMAGE = "/photos/bugatti-divo.jpg";
 
 /** Real customer reviews only. Leave empty until you have them; the section hides itself. */
 export type Review = { name: string; car: string; text: string; source?: string };

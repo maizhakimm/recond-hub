@@ -19,11 +19,13 @@ export default function PrivatePage() {
         ) : (
           <Image src={PRIVATE_HERO_IMAGE} alt="" fill priority sizes="100vw" className="object-cover opacity-80" unoptimized={PRIVATE_HERO_IMAGE.endsWith(".svg")} />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-night via-night/60 to-night/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-night via-night/55 to-night/10" />
+        <div className="absolute inset-x-0 top-0 h-2/5 bg-gradient-to-b from-night via-night/70 to-transparent" />
+        <span className="absolute bottom-3 right-3 z-10 rounded bg-black/55 px-1.5 py-0.5 text-[10px] font-medium text-white">Demo photo</span>
         <div className="container-page relative pb-20 pt-32">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-champagne">Private Sourcing</p>
           <h1 className="mt-4 max-w-3xl text-5xl leading-[1.02] text-[#f7f1e3] sm:text-7xl">The car you want. Found, imported, delivered.</h1>
-          <p className="mt-5 max-w-md text-lg text-[#c9bfab]">Ferrari · Lamborghini · McLaren · Bugatti</p>
+          <p className="mt-5 max-w-md text-lg text-[#c9bfab]">Bugatti · Ferrari · Lamborghini · McLaren · Rolls-Royce</p>
           <a href="#request" className="btn mt-8 border border-champagne px-6 text-champagne hover:bg-champagne hover:text-night">
             Begin a request
           </a>
@@ -49,11 +51,12 @@ export default function PrivatePage() {
           <h2 id="delivered" className="text-4xl text-[#f7f1e3] sm:text-5xl">
             Recently delivered
           </h2>
-          <ul className="mt-10 grid gap-8 sm:grid-cols-2">
+          <ul className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2">
             {PRIVATE_DELIVERIES.map((d) => (
               <li key={d.title}>
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <Image src={d.image} alt={d.title} fill sizes="(min-width: 640px) 50vw, 100vw" className="object-cover" unoptimized={d.image.endsWith(".svg")} />
+                  {d.image.startsWith("/photos/") && <span className="absolute bottom-2 right-2 rounded bg-black/55 px-1.5 py-0.5 text-[10px] font-medium text-white">Demo photo</span>}
                 </div>
                 <div className="mt-3 flex items-baseline justify-between gap-4">
                   <div>

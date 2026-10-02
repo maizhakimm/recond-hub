@@ -53,7 +53,7 @@ npm run check       # all three
 ## Google Sheet setup
 
 1. Create a spreadsheet with five tabs named exactly **`Stock`**, **`Showrooms`**, **`Agents`**, **`Leads`**, **`Settings`**.
-2. Import the matching CSV from [`data/sample/`](data/sample) into each tab (File → Import → Replace current sheet). Row 1 is the header; column order doesn't matter, names do.
+2. Easiest: upload [`data/RecondHub-Database.xlsx`](data/RecondHub-Database.xlsx) to Google Drive and open it with Google Sheets. It has every tab, the exact headers, dropdowns, column notes and a Bahasa Malaysia guide tab. (Or import the CSVs from [`data/sample/`](data/sample) into each tab.) Row 1 is the header; column order doesn't matter, names do.
 3. In Google Cloud: create a project, enable the **Google Sheets API**, create a **service account**, and download a JSON key.
 4. Share the spreadsheet with the service account's email (`…@….iam.gserviceaccount.com`) as **Editor** (it needs to append leads).
 5. Put the key JSON in `GOOGLE_SERVICE_ACCOUNT_JSON` and the sheet id in `SHEET_ID`.

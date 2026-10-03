@@ -181,9 +181,9 @@ export function CarDetail({ data, car, articles }: { data: SiteData; car: Car; a
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <h2 id="auction" className="text-2xl">
-                  Auction grade & sheet
+                  Auction sheet (Japan inspection report)
                 </h2>
-                <p className="mt-1 text-sm text-ink-2">Every car is sold with its original Japanese auction sheet, verified by our team before purchase.</p>
+                <p className="mt-1 text-sm text-ink-2">The inspection report written at the Japanese auction where we bought this car: overall grade, interior score, mileage and a map of every mark. Verified by our team before purchase.</p>
               </div>
               <GradeBadge grade={car.grade} large />
             </div>

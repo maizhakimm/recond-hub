@@ -30,7 +30,7 @@ Pergi ke tab **Stock** dan isi satu baris baharu:
 | `showroom_id` | SR01 | Mesti sama dengan tab Showrooms. Kosongkan jika kereta AP rakan. |
 | `state` | Selangor | Wajib jika tiada showroom |
 | `photos` | (pautan gambar) | Lihat bahagian 3 |
-| `auction_sheet_url` | (pautan gambar) | Gambar auction sheet |
+| `auction_sheet_url` | (auto) | Auction sheet = laporan pemeriksaan dari Jepun (bukan lelongan). Diisi sendiri dari folder gambar. |
 | `highlights` | Pilot seats, Sunroof, JBL | Dipisahkan dengan koma |
 | `description` | Teks ringkas | |
 | `featured` | TRUE | TRUE = tunjuk di halaman utama |
@@ -62,7 +62,7 @@ Anda **tak perlu buat folder atau salin pautan**. Semuanya automatik.
 4. Namakan gambar ikut susunan: **01, 02, 03 …**
    - **Gambar 01 = gambar utama (cover).** Pilih sisi depan yang paling cantik.
    - Susunan disyorkan: depan, sisi, belakang, dalaman depan, kerusi belakang, dashboard, enjin.
-5. Auction sheet: namakan fail dengan perkataan **auction** (cth. `auction-sheet.jpg`).
+5. **Auction sheet** (laporan pemeriksaan kereta dari Jepun, yang ada gred dan mileage; bukan berkaitan lelongan kita): ambil gambar dokumen itu dan namakan fail dengan perkataan **auction** (cth. `auction-sheet.jpg`). Kereta tanpa auction sheet (cth. dari UK)? Abaikan sahaja.
 6. Lajur `photos` dan `auction_sheet_url` **diisi sendiri** setiap 10 minit. Nak terus keluar di website? Tekan **RecondHub → 🔄 Refresh website**.
 
 Jangan taip dalam lajur `photos` atau `auction_sheet_url`. Ia akan ditulis semula oleh sistem.

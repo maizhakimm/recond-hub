@@ -13,15 +13,15 @@ export function AuctionSheet({ url, code }: { url: string; code: string }) {
   if (isPdf)
     return (
       <a href={url} target="_blank" rel="noopener" className="btn btn-outline">
-        <DocIcon /> View auction sheet (PDF)
+        <DocIcon /> View auction sheet / inspection report (PDF)
       </a>
     );
   return (
     <>
       <button type="button" className="btn btn-outline" onClick={() => setOpen(true)}>
-        <DocIcon /> View auction sheet
+        <DocIcon /> View auction sheet / inspection report
       </button>
-      <Modal open={open} onClose={() => setOpen(false)} title={`Auction sheet · #${code}`}>
+      <Modal open={open} onClose={() => setOpen(false)} title={`Auction sheet (inspection report) · #${code}`}>
         <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg bg-white">
           <CarImage src={url} alt={`Japanese auction sheet for car #${code}`} fill sizes="(min-width: 640px) 32rem, 100vw" className="object-contain" />
         </div>

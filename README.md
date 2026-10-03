@@ -83,7 +83,9 @@ Values are forgiving: `RM 238,000` and `238000` both work; dates can be `2026-09
 
 ### Photos
 
-Paste Google Drive share links or any HTTPS image URL into `photos`. Drive links (`drive.google.com/file/d/<id>/view`) are rewritten to `lh3.googleusercontent.com/d/<id>`, and **every photo is served through `next/image`** (resized, AVIF/WebP, cached by Vercel), so visitors never download from Drive directly. Drive files must be shared as "Anyone with the link can view".
+Photo folders are automatic: typing a car `code` makes the Apps Script create a Drive folder (inside `PHOTOS_FOLDER_ID`, shared anyone-with-link view) and write its link to `photo_folder`. Staff drop photos named 01, 02, … into it; every 10 minutes (and on "Refresh website") the script writes the sorted image links to `photos` and any file named "auction…" to `auction_sheet_url`. See `scripts/apps-script/Photos.gs`.
+
+You can still paste Google Drive share links or any HTTPS image URL into `photos` by hand for a car with no folder. Drive links (`drive.google.com/file/d/<id>/view`) are rewritten to `lh3.googleusercontent.com/d/<id>`, and **every photo is served through `next/image`** (resized, AVIF/WebP, cached by Vercel), so visitors never download from Drive directly. Drive files must be shared as "Anyone with the link can view".
 
 `next.config.ts` currently allows any HTTPS host so staff can paste links from anywhere; narrow `images.remotePatterns` once you know where photos live.
 

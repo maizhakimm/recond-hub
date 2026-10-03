@@ -4,13 +4,15 @@
  * Set these in Extensions → Apps Script → Project Settings → Script Properties
  * (never paste secrets into the code):
  *
- *   SITE_URL              https://www.recondhub.my          (no trailing slash)
+ *   SITE_URL              https://recondhub.com.my          (no trailing slash)
  *   REVALIDATE_SECRET     same value as the REVALIDATE_SECRET env var on Vercel
  *   ESCALATION_MINUTES    15                                 (flag New leads older than this)
  *   HQ_EMAIL              hq@recondhub.my, owner@recondhub.my (comma-separated)
  *   WHATSAPP_WEBHOOK_URL  optional: a WhatsApp gateway endpoint that accepts POST {"to","text"}
  *   WHATSAPP_WEBHOOK_TOKEN optional: sent as "Authorization: Bearer <token>"
  *   HQ_WHATSAPP           optional: 60XXXXXXXXX to receive escalation WhatsApps
+ *   PHOTOS_FOLDER_ID      id of the Drive folder where per-car photo folders are created
+ *                         (the "1. Gambar Stok Kereta" folder; id = last part of its URL)
  */
 function getConfig_() {
   var p = PropertiesService.getScriptProperties().getProperties();

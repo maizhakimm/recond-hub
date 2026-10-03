@@ -54,13 +54,18 @@ Kemudian tekan **RecondHub → 🔄 Refresh website**.
 
 ## 3. Tambah gambar
 
-1. Muat naik gambar ke **Google Drive** (satu folder untuk setiap kereta, cth. `RH121`).
-2. Klik kanan gambar → **Share** → **General access: Anyone with the link** → **Viewer**.
-3. **Copy link**.
-4. Tampal semua pautan dalam lajur `photos`, **dipisahkan dengan koma**.
-   - **Gambar pertama = gambar utama (cover)**. Pilih gambar sisi depan yang paling cantik.
-   - Susunan yang disyorkan: depan, sisi, belakang, dalaman depan, kerusi belakang, dashboard, enjin.
-5. Tampal pautan gambar auction sheet dalam `auction_sheet_url`.
+Anda **tak perlu buat folder atau salin pautan**. Semuanya automatik.
+
+1. Taip **kod kereta** dalam tab Stock (cth. `RH121`), dan isi make, model dan tahun.
+2. Dalam beberapa saat, lajur **`photo_folder`** akan ada pautan folder, cth. `RH121 - Toyota Alphard 2021`.
+3. **Klik pautan itu**, kemudian **drag gambar masuk** ke folder (dari telefon: buka Google Drive app → folder → **+** → Upload).
+4. Namakan gambar ikut susunan: **01, 02, 03 …**
+   - **Gambar 01 = gambar utama (cover).** Pilih sisi depan yang paling cantik.
+   - Susunan disyorkan: depan, sisi, belakang, dalaman depan, kerusi belakang, dashboard, enjin.
+5. Auction sheet: namakan fail dengan perkataan **auction** (cth. `auction-sheet.jpg`).
+6. Lajur `photos` dan `auction_sheet_url` **diisi sendiri** setiap 10 minit. Nak terus keluar di website? Tekan **RecondHub → 🔄 Refresh website**.
+
+Jangan taip dalam lajur `photos` atau `auction_sheet_url`. Ia akan ditulis semula oleh sistem.
 
 Tips gambar: guna mod landskap (melintang), cahaya siang, latar belakang bersih. Saiz ideal sekurang-kurangnya 1600 piksel lebar.
 

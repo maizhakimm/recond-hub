@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
-import { TikTokEmbed } from "@/components/site/TikTokEmbed";
+import { TikTokProfile } from "@/components/site/TikTokProfile";
 import { DocIcon, ShieldIcon, WrenchIcon } from "@/components/ui/Icons";
-import { FINANCING_PARTNERS, REVIEWS, TIKTOK_VIDEOS } from "@/content/media";
+import { FINANCING_PARTNERS, REVIEWS } from "@/content/media";
 import { BRAND } from "@/lib/config";
 
 export const metadata: Metadata = {
@@ -103,13 +103,9 @@ export default function WhyUsPage() {
         <h2 id="tiktok" className="text-3xl">
           See it on TikTok
         </h2>
-        <ul className="no-scrollbar -mx-4 mt-4 flex gap-3 overflow-x-auto px-4 pb-2 sm:grid sm:grid-cols-3 sm:overflow-visible">
-          {TIKTOK_VIDEOS.map((v, i) => (
-            <li key={i} className="w-56 shrink-0 sm:w-auto">
-              <TikTokEmbed video={v} />
-            </li>
-          ))}
-        </ul>
+        <div className="mt-4 flex justify-center">
+          <TikTokProfile />
+        </div>
       </section>
     </div>
   );

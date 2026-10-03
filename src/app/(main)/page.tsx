@@ -3,13 +3,13 @@ import Link from "next/link";
 import { CarGrid } from "@/components/cars/CarCard";
 import { CarImage } from "@/components/cars/CarImage";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { TikTokEmbed } from "@/components/site/TikTokEmbed";
+import { TikTokProfile } from "@/components/site/TikTokProfile";
 import { DocIcon, SearchIcon, ShieldIcon, StoreIcon, UsersIcon, WrenchIcon } from "@/components/ui/Icons";
-import { DELIVERIES, TIKTOK_VIDEOS } from "@/content/media";
+import { DELIVERIES } from "@/content/media";
 import { BRAND, BRAND_TAGLINE, SITE_URL, SOCIAL } from "@/lib/config";
 import { getSiteData } from "@/lib/data";
 import { listedStock, makeFacets, MONTHLY_BANDS, toSummary } from "@/lib/data/queries";
-import { BODY_TYPES } from "@/lib/data/schema";
+import { BODY_TYPES } from "@/lib/data/constants";
 import { getArticles, CATEGORIES } from "@/lib/guide";
 import { STATES } from "@/lib/states";
 import { carAlt, formatRM } from "@/lib/format";
@@ -284,13 +284,9 @@ export default async function HomePage() {
               Follow {BRAND_TAGLINE}
             </a>
           </div>
-          <ul className="no-scrollbar -mx-4 mt-4 flex gap-3 overflow-x-auto px-4 pb-2 sm:grid sm:grid-cols-3 sm:overflow-visible">
-            {TIKTOK_VIDEOS.map((v, i) => (
-              <li key={i} className="w-56 shrink-0 sm:w-auto">
-                <TikTokEmbed video={v} />
-              </li>
-            ))}
-          </ul>
+          <div className="mt-4 flex justify-center">
+            <TikTokProfile />
+          </div>
         </div>
       </section>
 

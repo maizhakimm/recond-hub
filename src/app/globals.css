@@ -8,7 +8,7 @@
   --color-card: #ffffff;
   --color-ink: #0e1116;
   --color-ink-2: #3d4450;
-  --color-muted: #6b7280;
+  --color-muted: #5b6270;
   --color-line: #e6e8ec;
   --color-gold: #b8862b;
   --color-gold-text: #8a5f12;
@@ -18,8 +18,8 @@
   --color-night: #0b0a08;
   --color-night-2: #14120f;
   --color-night-3: #1f1c17;
-  --color-whatsapp: #128c3e;
-  --color-whatsapp-dark: #0e6f31;
+  --color-whatsapp: #0e7a36;
+  --color-whatsapp-dark: #0b6129;
 
   --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
   --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;

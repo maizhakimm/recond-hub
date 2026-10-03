@@ -4,7 +4,7 @@ import { LandingPage } from "@/components/cars/LandingPage";
 import { BRAND } from "@/lib/config";
 import { getSiteData } from "@/lib/data";
 import { listedStock } from "@/lib/data/queries";
-import { BODY_TYPES } from "@/lib/data/schema";
+import { BODY_TYPES } from "@/lib/data/constants";
 
 export const revalidate = 300;
 

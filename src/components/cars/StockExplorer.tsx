@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import type { CarSummary } from "@/lib/data/queries";
-import { BODY_TYPES } from "@/lib/data/schema";
+import { BODY_TYPES } from "@/lib/data/constants";
 import { applyFilters, countActive, EMPTY_FILTERS, filtersToQuery, parseFilters, sortCars, SORTS, type Filters, type SortKey } from "@/lib/filters";
 import { formatNumber } from "@/lib/format";
 import { track } from "@/lib/analytics";
@@ -277,6 +277,7 @@ export function StockExplorer({
           {results.length} {results.length === 1 ? "car" : "cars"} found
         </p>
 
+        <h2 className="sr-only">Search results</h2>
         {results.length ? (
           <>
             <CarGrid cars={results.slice(0, limit)} priorityFirst={2} narrow />

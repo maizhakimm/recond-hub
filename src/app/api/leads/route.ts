@@ -13,11 +13,31 @@ function safe(v: string): string {
   return /^[=+\-@]/.test(v) ? `'${v}` : v;
 }
 
+/**
+ * Light spam guard: at most 12 leads per IP per 10 minutes, per server instance.
+ * Real buyers never get near this; scripted floods get a 429 and nothing is written to the sheet.
+ */
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+const RATE_MAX = 12;
+const hits = new Map<string, number[]>();
+
+function rateLimited(ip: string): boolean {
+  const now = Date.now();
+  const recent = (hits.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+  recent.push(now);
+  hits.set(ip, recent);
+  if (hits.size > 5000) for (const [k, v] of hits) if (now - v[v.length - 1] > RATE_WINDOW_MS) hits.delete(k);
+  return recent.length > RATE_MAX;
+}
+
 function nowMalaysia(): string {
   return new Date().toLocaleString("sv-SE", { timeZone: "Asia/Kuala_Lumpur" }); // 2026-09-28 17:45:00
 }
 
 export async function POST(req: Request): Promise<NextResponse<LeadResponse>> {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || req.headers.get("x-real-ip") || "unknown";
+  if (rateLimited(ip)) return NextResponse.json({ ok: false, error: "too many requests" }, { status: 429 });
+
   let body: unknown;
   try {
     body = await req.json();

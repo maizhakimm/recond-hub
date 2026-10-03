@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/config";
 import { getSiteData } from "@/lib/data";
 import { activeAgents, BUDGETS, listedStock, makeFacets } from "@/lib/data/queries";
-import { BODY_TYPES } from "@/lib/data/schema";
+import { BODY_TYPES } from "@/lib/data/constants";
 import { CATEGORIES, getArticles } from "@/lib/guide";
 import { STATES } from "@/lib/states";
 

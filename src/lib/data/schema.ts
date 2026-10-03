@@ -70,9 +70,9 @@ function caseEnum<T extends string>(values: readonly T[]) {
 
 /* ---------- tabs ---------- */
 
-export const STATUSES = ["Available", "Reserved", "Sold", "Hidden"] as const;
-export const BODY_TYPES = ["MPV", "SUV", "Sedan", "Hatchback", "Coupe", "Pickup"] as const;
-export type BodyType = (typeof BODY_TYPES)[number];
+import { BODY_TYPES, STATUSES } from "./constants";
+export { BODY_TYPES, STATUSES };
+export type { BodyType } from "./constants";
 
 export const stockRow = z.object({
   code: requiredText.pipe(z.string().regex(/^[A-Za-z]{1,5}-?\d{1,6}$/, "code must look like RH102")).transform((s) => s.toUpperCase().replace("-", "")),

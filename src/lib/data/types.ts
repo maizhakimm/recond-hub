@@ -1,7 +1,9 @@
 import type { AgentRow, ShowroomRow, StockRow } from "./schema";
 import type { LoanSettings } from "../loan";
+import type { FeatureKey } from "./columns";
 
 export type Car = StockRow & {
+  features: FeatureKey[]; // ticked feature columns, in sheet order
   slug: string;
   title: string; // "Toyota Alphard 2.5 SC"
   makeSlug: string;

@@ -12,29 +12,32 @@ Pergi ke tab **Stock** dan isi satu baris baharu:
 
 | Lajur | Contoh | Nota |
 | --- | --- | --- |
-| `code` | RH121 | Kod unik. Jangan guna semula kod lama. |
-| `status` | Available | Available / Reserved / Sold / Hidden |
-| `make` | Toyota | |
-| `model` | Alphard | Eja sama setiap kali (cth. "Alphard", bukan "alphard sc") |
-| `variant` | 2.5 SC | |
-| `year_manufactured` | 2021 | Wajib |
-| `year_registered` | 2024 | Kosongkan jika belum daftar |
-| `body_type` | MPV | Hanya: MPV, SUV, Sedan, Hatchback, Coupe, Pickup |
-| `price_rm` | 238000 | Nombor sahaja (RM 238,000 pun boleh) |
-| `mileage_km` | 32000 | |
-| `grade` | 4.5 | Gred lelongan |
-| `engine_cc` | 2494 | |
-| `transmission` | Automatic | Automatic / Manual |
-| `fuel` | Petrol | Petrol / Hybrid / Diesel / Plug-in Hybrid |
-| `colour` | Pearl White | |
-| `showroom_id` | SR01 | Mesti sama dengan tab Showrooms. Kosongkan jika kereta AP rakan. |
-| `state` | Selangor | Wajib jika tiada showroom |
-| `photos` | (pautan gambar) | Lihat bahagian 3 |
-| `auction_sheet_url` | (auto) | Auction sheet = laporan pemeriksaan dari Jepun (bukan lelongan). Diisi sendiri dari folder gambar. |
-| `highlights` | Pilot seats, Sunroof, JBL | Dipisahkan dengan koma |
-| `description` | Teks ringkas | |
-| `featured` | TRUE | TRUE = tunjuk di halaman utama |
-| `date_added` | (auto) | Diisi sendiri bila anda taip `code` |
+| **Kod Kereta** | RH121 | Kod unik. Jangan guna semula kod lama. |
+| **Status** | Available | Available / Reserved / Sold / Hidden |
+| **Jenama** | Toyota | |
+| **Model** | Alphard | Eja sama setiap kali (cth. "Alphard", bukan "alphard sc") |
+| **Varian** | 2.5 SC | |
+| **Tahun Dibuat** | 2021 | Wajib |
+| **Tahun Daftar** | 2024 | Kosongkan jika belum daftar |
+| **Jenis Badan** | MPV | Hanya: MPV, SUV, Sedan, Hatchback, Coupe, Pickup |
+| **Harga (RM)** | 238000 | Nombor sahaja (RM 238,000 pun boleh) |
+| **Mileage (km)** | 32000 | |
+| **Gred Auction** | 4.5 | Gred dari auction sheet (laporan pemeriksaan Jepun) |
+| **Enjin (cc)** | 2494 | |
+| **Gear** | Automatic | Automatic / Manual |
+| **Minyak** | Petrol | Petrol / Hybrid / Diesel / Plug-in Hybrid / Electric |
+| **Warna** | Pearl White | |
+| **Tempat Duduk** | 7 | Bilangan tempat duduk |
+| **Pacuan** | 2WD | 2WD / 4WD / AWD |
+| **Lajur hijau** (Sunroof, Moonroof / Panoramic, Pintu Elektrik, Bonet Elektrik, Pilot Seat, Kerusi Kulit, Kamera 360, Skrin Belakang, Head-Up Display, Audio Premium, Apple CarPlay / Android Auto, Adaptive Cruise) | TRUE | Pilih TRUE kalau kereta ada ciri itu. Kosongkan kalau tiada. Pelanggan boleh tapis ikut ciri ini. |
+| **Kelebihan Lain** | Modellista bodykit, Digital mirror | Ciri lain yang tiada dalam lajur hijau, dipisah koma |
+| **Penerangan** | Teks ringkas | |
+| **Showroom** | SR01 | Pilih dari senarai. Kosongkan jika kereta AP rakan. |
+| **Negeri** | Selangor | Wajib jika tiada showroom |
+| **Tonjol di Laman Utama** | TRUE | TRUE = papar di halaman utama |
+| **Folder Gambar** | (auto) | Pautan folder gambar, dibuat sendiri. Lihat bahagian 3. |
+| **Gambar (auto)** / **Auction Sheet (auto)** | (auto) | Jangan isi. Diisi sendiri dari folder gambar. |
+| **Tarikh Masuk** / **Tarikh Jual** | (auto) | Diisi sendiri |
 
 Kemudian tekan **RecondHub → 🔄 Refresh website**.
 
@@ -57,15 +60,15 @@ Kemudian tekan **RecondHub → 🔄 Refresh website**.
 Anda **tak perlu buat folder atau salin pautan**. Semuanya automatik.
 
 1. Taip **kod kereta** dalam tab Stock (cth. `RH121`), dan isi make, model dan tahun.
-2. Dalam beberapa saat, lajur **`photo_folder`** akan ada pautan folder, cth. `RH121 - Toyota Alphard 2021`.
+2. Dalam beberapa saat, lajur **Folder Gambar** akan ada pautan folder, cth. `RH121 - Toyota Alphard 2021`.
 3. **Klik pautan itu**, kemudian **drag gambar masuk** ke folder (dari telefon: buka Google Drive app → folder → **+** → Upload).
 4. Namakan gambar ikut susunan: **01, 02, 03 …**
    - **Gambar 01 = gambar utama (cover).** Pilih sisi depan yang paling cantik.
    - Susunan disyorkan: depan, sisi, belakang, dalaman depan, kerusi belakang, dashboard, enjin.
 5. **Auction sheet** (laporan pemeriksaan kereta dari Jepun, yang ada gred dan mileage; bukan berkaitan lelongan kita): ambil gambar dokumen itu dan namakan fail dengan perkataan **auction** (cth. `auction-sheet.jpg`). Kereta tanpa auction sheet (cth. dari UK)? Abaikan sahaja.
-6. Lajur `photos` dan `auction_sheet_url` **diisi sendiri** setiap 10 minit. Nak terus keluar di website? Tekan **RecondHub → 🔄 Refresh website**.
+6. Lajur **Gambar (auto)** dan **Auction Sheet (auto)** **diisi sendiri** setiap 10 minit. Nak terus keluar di website? Tekan **RecondHub → 🔄 Refresh website**.
 
-Jangan taip dalam lajur `photos` atau `auction_sheet_url`. Ia akan ditulis semula oleh sistem.
+Jangan taip dalam lajur **Gambar (auto)** atau **Auction Sheet (auto)**. Ia akan ditulis semula oleh sistem.
 
 Tips gambar: guna mod landskap (melintang), cahaya siang, latar belakang bersih. Saiz ideal sekurang-kurangnya 1600 piksel lebar.
 
@@ -75,13 +78,13 @@ Tab **Agents**:
 
 | Lajur | Contoh | Nota |
 | --- | --- | --- |
-| `agent_id` | A06 | Kod unik. Jangan tukar selepas digunakan. |
-| `name` | Nurul Aisyah | |
-| `state` | Kedah | Nama negeri, atau `HQ` untuk SA di HQ |
-| `showroom_id` | | Pilihan |
-| `whatsapp` | 60123456789 | Format 60XXXXXXXXX |
-| `photo` | (pautan Drive) | Pilihan, gambar muka segi empat |
-| `active` | TRUE | FALSE = berhenti terima lead |
+| **Kod Agen** | A06 | Kod unik. Jangan tukar selepas digunakan. |
+| **Nama** | Nurul Aisyah | |
+| **Negeri** | Kedah | Nama negeri, atau `HQ` untuk SA di HQ |
+| **Showroom** | | Pilihan |
+| **WhatsApp** | 60123456789 | Format 60XXXXXXXXX |
+| **Gambar** | (pautan Drive) | Pilihan, gambar muka segi empat |
+| **Aktif** | TRUE | FALSE = berhenti terima pelanggan |
 
 - Lead dari negeri agen akan dihantar kepada agen itu secara bergilir (jika ada lebih dari seorang).
 - Negeri tanpa agen: lead dihantar kepada SA di HQ (`state` = `HQ`) secara bergilir.
@@ -105,26 +108,26 @@ Tab **Leads** diisi oleh laman web setiap kali pelanggan menghantar borang atau 
 
 | Lajur | Maksud |
 | --- | --- |
-| `timestamp` | Masa lead masuk (waktu Malaysia) |
-| `type` | Jenis lead (lihat bawah) |
-| `car_code` | Kereta yang diminati |
-| `name`, `phone`, `state` | Maklumat pelanggan (jika diisi) |
-| `showroom_id`, `preferred_date`, `preferred_time` | Untuk tempahan tontonan |
-| `details_json` | Maklumat tambahan (cth. kiraan pinjaman, kereta trade-in) |
-| `assigned_to` | Agen / showroom / SA yang menerima lead |
-| `source_page` | Halaman laman web tempat lead dihantar |
-| `utm_source`, `utm_campaign` | Dari mana pelanggan datang (cth. tiktok) |
-| `status` | Sentiasa `New` bila masuk |
+| **Masa** | Masa pelanggan hubungi (waktu Malaysia) |
+| **Jenis** | Tempah Tontonan, Tanya WhatsApp, Kira Pinjaman, Trade-in, Cari Kereta, Private Sourcing, Mohon Jadi Agen |
+| **Kod Kereta** | Kereta yang diminati |
+| **Nama**, **Telefon**, **Negeri** | Maklumat pelanggan (jika diisi) |
+| **Showroom**, **Tarikh Pilihan**, **Masa Pilihan** | Untuk tempahan tontonan |
+| **Maklumat Tambahan** | Cth. kiraan pinjaman, kereta trade-in, dan siapa yang terima lead |
+| **Diserah Kepada** | Agen / showroom / SA yang menerima pelanggan |
+| **Halaman** | Halaman website tempat pelanggan tekan |
+| **Sumber Iklan**, **Kempen Iklan** | Dari mana pelanggan datang (cth. tiktok) |
+| **Status** | Sentiasa `New` bila masuk |
 
-**Jenis lead (`type`)**:
+**Lajur Jenis**:
 
-- `viewing_booking`: tempah tontonan (paling penting, hubungi segera)
-- `whatsapp_enquiry`: tekan butang WhatsApp
-- `loan`: hantar kiraan pinjaman
-- `trade_in`: minta nilai trade-in
-- `find_me_a_car`: minta dicarikan kereta
-- `private_sourcing`: kereta eksotik, terus kepada owner
-- `agent_application`: mohon jadi agen
+- **Tempah Tontonan**: pelanggan tempah untuk tengok kereta (paling penting, hubungi segera)
+- **Tanya WhatsApp**: pelanggan tekan butang WhatsApp
+- **Kira Pinjaman**: pelanggan hantar kiraan pinjaman
+- **Trade-in**: pelanggan minta nilai kereta lama
+- **Cari Kereta**: pelanggan minta dicarikan kereta
+- **Private Sourcing**: kereta eksotik, terus kepada owner
+- **Mohon Jadi Agen**: permohonan jadi agen
 
 **Langkah kerja**:
 

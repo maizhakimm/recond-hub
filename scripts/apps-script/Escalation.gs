@@ -13,7 +13,7 @@ function escalateStaleLeads() {
   var cols = headerMap_(sheet);
   if (!cols.escalated_at) {
     // Add the tracking column once; the website ignores columns it doesn't know.
-    sheet.getRange(1, sheet.getLastColumn() + 1).setValue('escalated_at');
+    sheet.getRange(1, sheet.getLastColumn() + 1).setValue(columnLabel_('Leads', 'escalated_at'));
     cols = headerMap_(sheet);
   }
 

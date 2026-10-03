@@ -24,7 +24,7 @@ function photosRoot_() {
 function ensurePhotoColumn_(sheet) {
   var cols = headerMap_(sheet);
   if (!cols[PHOTO_FOLDER_COL]) {
-    sheet.getRange(1, sheet.getLastColumn() + 1).setValue(PHOTO_FOLDER_COL);
+    sheet.getRange(1, sheet.getLastColumn() + 1).setValue(columnLabel_('Stock', PHOTO_FOLDER_COL));
     cols = headerMap_(sheet);
   }
   return cols;

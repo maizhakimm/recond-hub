@@ -61,7 +61,9 @@ npm run check       # all three
 
 ### Tabs and columns
 
-**`Stock`**: `code` · `status` (Available / Reserved / Sold / Hidden) · `make` · `model` · `variant` · `year_manufactured` · `year_registered` · `body_type` (MPV, SUV, Sedan, Hatchback, Coupe, Pickup) · `price_rm` · `mileage_km` · `grade` · `engine_cc` · `transmission` · `fuel` · `colour` · `showroom_id` · `state` · `photos` (comma-separated URLs, first = cover) · `auction_sheet_url` · `highlights` (comma-separated) · `description` · `featured` (TRUE/FALSE) · `date_added` · **`sold_date`**
+Column headers in the client's sheet are friendly Bahasa Malaysia labels ("Kod Kereta", "Harga (RM)", "Pilot Seat"…). `src/lib/data/columns.ts` maps each label to the internal key listed below; either the label or the key works as a header, so the CSVs in `data/sample/` (keys) and the client template (labels) both load. Lead types and details are written to the Leads tab in plain BM.
+
+**`Stock`**: `code` · `status` (Available / Reserved / Sold / Hidden) · `make` · `model` · `variant` · `year_manufactured` · `year_registered` · `body_type` (MPV, SUV, Sedan, Hatchback, Coupe, Pickup) · `price_rm` · `mileage_km` · `grade` · `engine_cc` · `transmission` · `fuel` · `colour` · `seats` · `drivetrain` (2WD/4WD/AWD) · feature tick-boxes `sunroof` `moonroof` `power_doors` `power_boot` `pilot_seats` `leather_seats` `camera_360` `rear_monitor` `head_up_display` `premium_audio` `carplay` `adaptive_cruise` · `showroom_id` · `state` · `photos` (comma-separated URLs, first = cover) · `auction_sheet_url` · `highlights` (comma-separated) · `description` · `featured` (TRUE/FALSE) · `date_added` · **`sold_date`**
 
 > `sold_date` is an addition to the brief. "Sold stays visible for 7 days" needs to know when the car was sold. The Apps Script fills it automatically when status is set to Sold.
 

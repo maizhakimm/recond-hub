@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import type { CarSummary } from "@/lib/data/queries";
 import { BODY_TYPES } from "@/lib/data/constants";
+import { FEATURES, FEATURE_NAMES_EN } from "@/lib/data/columns";
 import { applyFilters, countActive, EMPTY_FILTERS, filtersToQuery, parseFilters, sortCars, SORTS, type Filters, type SortKey } from "@/lib/filters";
 import { formatNumber } from "@/lib/format";
 import { track } from "@/lib/analytics";
@@ -20,10 +21,13 @@ const PRICE_STEPS = [50, 80, 100, 120, 150, 180, 200, 250, 300, 400, 500, 700, 1
 const MONTHLY_STEPS = [1000, 1500, 2000, 2500, 3000, 4000, 5000, 7500, 10000];
 const KM_STEPS = [10000, 20000, 30000, 50000, 80000, 120000];
 const GRADES = [3.5, 4, 4.5, 5];
+const SEATS = [5, 7, 8];
 
 function searchText(c: CarSummary) {
   const compact = `${c.model}${c.variant}`.replace(/[\s.-]/g, "");
-  return `${c.code} ${c.make} ${c.model} ${c.variant} ${c.year} ${c.body} ${c.colour} ${c.state} ${c.fuel} ${c.transmission} ${compact}`.toLowerCase();
+  const feats = c.features.map((k) => FEATURE_NAMES_EN[k]).join(" ");
+  const seats = c.seats ? `${c.seats} seater` : "";
+  return `${c.code} ${c.make} ${c.model} ${c.variant} ${c.year} ${c.body} ${c.colour} ${c.state} ${c.fuel} ${c.transmission} ${c.drivetrain} ${seats} ${feats} ${compact}`.toLowerCase();
 }
 
 /** Fuse extended search: tokens are ANDed; tokens with digits must appear exactly ("2021", "rh109", "gr86"); words are fuzzy ("alfard"). */
@@ -106,9 +110,14 @@ export function StockExplorer({
     return [...m.entries()].sort((a, b) => a[1].name.localeCompare(b[1].name));
   }, [cars]);
   const years = useMemo(() => [...new Set(cars.map((c) => c.year))].sort((a, b) => b - a), [cars]);
+  // Only offer features that at least one car in this list actually has.
+  const featureCounts = useMemo(
+    () => FEATURES.map((f) => ({ key: f.key, n: cars.filter((c) => c.features.includes(f.key)).length })).filter((x) => x.n > 0),
+    [cars],
+  );
   const active = countActive(filters, locked);
 
-  const numSelect = (k: "ymin" | "ymax" | "pmin" | "pmax" | "mmin" | "mmax" | "km" | "grade", label: string, steps: number[], fmt: (n: number) => string) => (
+  const numSelect = (k: "ymin" | "ymax" | "pmin" | "pmax" | "mmin" | "mmax" | "km" | "grade" | "seats", label: string, steps: number[], fmt: (n: number) => string) => (
     <div>
       <label className="label" htmlFor={`f-${k}`}>
         {label}
@@ -186,6 +195,7 @@ export function StockExplorer({
         {numSelect("ymax", "Year to", years, String)}
         {numSelect("km", "Max mileage", KM_STEPS, (n) => `${formatNumber(n)} km`)}
         {numSelect("grade", "Min grade", GRADES, (n) => `${n}+`)}
+        {numSelect("seats", "Seats", SEATS, (n) => `${n}+ seats`)}
       </div>
       {!locked.state && (
         <div>
@@ -227,6 +237,27 @@ export function StockExplorer({
           <option value="manual">Manual</option>
         </select>
       </div>
+      {featureCounts.length > 0 && (
+        <fieldset>
+          <legend className="label">Features</legend>
+          <div className="flex flex-wrap gap-2">
+            {featureCounts.map(({ key, n }) => {
+              const on = filters.feat.includes(key);
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  aria-pressed={on}
+                  onClick={() => set("feat", on ? filters.feat.filter((k) => k !== key) : [...filters.feat, key])}
+                  className={`chip text-xs ${on ? "border-ink bg-ink text-paper hover:border-ink" : ""}`}
+                >
+                  {FEATURE_NAMES_EN[key]} <span className={on ? "text-paper/70" : "text-muted"}>{n}</span>
+                </button>
+              );
+            })}
+          </div>
+        </fieldset>
+      )}
       {active > 0 && (
         <button type="button" onClick={clear} className="btn btn-outline w-full">
           Clear filters

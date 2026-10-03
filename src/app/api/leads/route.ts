@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { REF_COOKIE, UTM_COOKIE } from "@/lib/config";
 import { getSiteData } from "@/lib/data";
+import { LEAD_TYPE_LABELS } from "@/lib/data/columns";
 import { appendRow } from "@/lib/data/sheets";
 import { routeLead } from "@/lib/leads/routing";
 import { leadInput, type LeadResponse } from "@/lib/leads/types";
@@ -28,6 +29,26 @@ function rateLimited(ip: string): boolean {
   hits.set(ip, recent);
   if (hits.size > 5000) for (const [k, v] of hits) if (now - v[v.length - 1] > RATE_WINDOW_MS) hits.delete(k);
   return recent.length > RATE_MAX;
+}
+
+/** Plain-language summary for the "Maklumat Tambahan" column, e.g. "price: 238000 · years: 9 · laluan: agen negeri". */
+const ROUTE_LABELS: Record<string, string> = {
+  owner: "terus kepada owner",
+  direct_agent: "agen yang dipilih",
+  direct_showroom: "showroom yang dipilih",
+  showroom: "showroom yang dipilih",
+  ref_link: "pautan agen",
+  state_agent: "agen negeri",
+  hq_round_robin: "SA HQ (bergilir)",
+  hq_number: "nombor HQ",
+};
+function detailsText(details: Record<string, string | number | boolean>, rule: string, ref?: string): string {
+  const parts = Object.entries(details)
+    .filter(([, v]) => v !== "" && v !== undefined)
+    .map(([k, v]) => `${k.replace(/_/g, " ")}: ${v}`);
+  parts.push(`laluan: ${ROUTE_LABELS[rule] ?? rule}`);
+  if (ref) parts.push(`pautan agen: ${ref}`);
+  return parts.join(" · ");
 }
 
 function nowMalaysia(): string {
@@ -73,7 +94,7 @@ export async function POST(req: Request): Promise<NextResponse<LeadResponse>> {
 
   const row = {
     timestamp: nowMalaysia(),
-    type: lead.type,
+    type: LEAD_TYPE_LABELS[lead.type] ?? lead.type,
     car_code: safe(lead.car_code.toUpperCase()),
     name: safe(lead.name),
     phone: normalizeMsisdn(lead.phone) || safe(lead.phone),
@@ -81,7 +102,7 @@ export async function POST(req: Request): Promise<NextResponse<LeadResponse>> {
     showroom_id: safe(lead.showroom_id),
     preferred_date: safe(lead.preferred_date),
     preferred_time: safe(lead.preferred_time),
-    details_json: JSON.stringify({ ...lead.details, route: route.rule, ...(ref ? { ref } : {}) }),
+    details_json: safe(detailsText(lead.details, route.rule, ref)),
     assigned_to: route.assignedTo,
     source_page: safe(lead.source_page),
     utm_source: safe(lead.utm_source || utm.utm_source || ""),

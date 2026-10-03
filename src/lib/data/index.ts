@@ -4,6 +4,7 @@ import { REVALIDATE_SECONDS, SHEETS_CACHE_TAG } from "../config";
 import { slugify } from "../slug";
 import { findState, HQ } from "../states";
 import { normalizeMsisdn } from "../whatsapp";
+import { FEATURES } from "./columns";
 import { readTab, sheetsConfigured } from "./sheets";
 import { agentRow, settingsRow, showroomRow, stockRow, validateRows } from "./schema";
 import type { Agent, Car, Settings, Showroom, SiteData } from "./types";
@@ -69,6 +70,7 @@ async function loadSiteData(): Promise<SiteData> {
     stock.push({
       ...row,
       showroom_id: showroom ? row.showroom_id : "",
+      features: FEATURES.filter((f) => (row as Record<string, unknown>)[f.key] === true).map((f) => f.key),
       slug: carSlug(row),
       title: [row.make, row.model, row.variant].filter(Boolean).join(" "),
       makeSlug: slugify(row.make),

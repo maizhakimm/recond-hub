@@ -43,6 +43,7 @@ export function CarCard({ car, priority = false }: { car: CarSummary; priority?:
         <ul className="mb-4 mt-3 flex flex-wrap gap-x-3 gap-y-1 text-[13px] text-ink-2 tnum">
           <li>{formatKm(car.mileage)}</li>
           {car.grade && <li>Grade {car.grade}</li>}
+          {car.seats && <li>{car.seats} seats</li>}
           <li className="inline-flex items-center gap-1">
             <PinIcon className="h-3.5 w-3.5 text-muted" />
             {car.state}

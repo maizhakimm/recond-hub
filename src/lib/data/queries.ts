@@ -1,5 +1,6 @@
 import { SOLD_LISTED_DAYS, SOLD_PAGE_DAYS } from "../config";
 import { fromMonthly } from "../loan";
+import type { FeatureKey } from "./columns";
 import type { Agent, Car, Settings, Showroom, SiteData } from "./types";
 
 const DAY = 86400000;
@@ -114,6 +115,9 @@ export type CarSummary = {
   cover?: string;
   featured: boolean;
   added: string;
+  seats?: number;
+  drivetrain: string;
+  features: FeatureKey[];
 };
 
 export function toSummary(c: Car, s: Settings): CarSummary {
@@ -141,6 +145,9 @@ export function toSummary(c: Car, s: Settings): CarSummary {
     cover: c.photos[0],
     featured: c.featured,
     added: c.date_added ?? "",
+    seats: c.seats,
+    drivetrain: c.drivetrain,
+    features: c.features,
   };
 }
 

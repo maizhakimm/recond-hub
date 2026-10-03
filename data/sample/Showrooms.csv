@@ -1,4 +1,4 @@
-showroom_id,name,state,city,address,google_maps_url,whatsapp,opening_hours,photo
+Kod Showroom,Nama,Negeri,Bandar,Alamat,Pautan Google Maps,WhatsApp,Waktu Operasi,Gambar
 SR01,RecondHub HQ Shah Alam,Selangor,Shah Alam,"Lot 12, Jalan Utas 15/7, Seksyen 15, 40200 Shah Alam, Selangor",https://maps.google.com/?q=Seksyen+15+Shah+Alam,60123456701,Mon-Sat 10:00-19:00; Sun 11:00-17:00,/sample/showroom.svg
 SR02,RecondHub Johor Bahru,Johor,Johor Bahru,"No. 8, Jalan Harmonium 23/1, Taman Desa Tebrau, 81100 Johor Bahru, Johor",https://maps.google.com/?q=Taman+Desa+Tebrau+Johor+Bahru,60123456702,Daily 10:00-19:00,/sample/showroom.svg
 SR03,RecondHub Penang,Penang,Bayan Lepas,"23, Jalan Mayang Pasir 3, 11950 Bayan Lepas, Pulau Pinang",https://maps.google.com/?q=Jalan+Mayang+Pasir+Bayan+Lepas,60123456703,Mon-Fri 10:00-19:00; Sat-Sun 10:00-17:00,/sample/showroom.svg

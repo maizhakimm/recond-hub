@@ -1,4 +1,5 @@
 import type { CarSummary } from "./data/queries";
+import { FEATURES, type FeatureKey } from "./data/columns";
 
 export type SortKey = "newest" | "price_asc" | "price_desc" | "year" | "mileage";
 export const SORTS: { key: SortKey; label: string }[] = [
@@ -25,12 +26,15 @@ export type Filters = {
   km?: number;
   grade?: number;
   trans: string;
+  seats?: number; // minimum seats
+  feat: FeatureKey[]; // must have all of these
   sort: SortKey;
 };
 
-export const EMPTY_FILTERS: Filters = { q: "", make: "", model: "", body: "", state: "", showroom: "", trans: "", sort: "newest" };
+export const EMPTY_FILTERS: Filters = { q: "", make: "", model: "", body: "", state: "", showroom: "", trans: "", feat: [], sort: "newest" };
 
-const NUM_KEYS = ["ymin", "ymax", "pmin", "pmax", "mmin", "mmax", "km", "grade"] as const;
+const NUM_KEYS = ["ymin", "ymax", "pmin", "pmax", "mmin", "mmax", "km", "grade", "seats"] as const;
+const FEATURE_KEYS = new Set<string>(FEATURES.map((f) => f.key));
 const STR_KEYS = ["q", "make", "model", "body", "state", "showroom", "trans"] as const;
 
 type Params = Record<string, string | string[] | undefined>;
@@ -46,6 +50,9 @@ export function parseFilters(params: Params): Filters {
     const n = Number(get(k));
     if (get(k) !== "" && Number.isFinite(n)) f[k] = n;
   }
+  f.feat = get("feat")
+    .split(",")
+    .filter((k): k is FeatureKey => FEATURE_KEYS.has(k));
   const sort = get("sort") as SortKey;
   if (SORTS.some((s) => s.key === sort)) f.sort = sort;
   return f;
@@ -56,6 +63,7 @@ export function filtersToQuery(f: Filters, locked: Partial<Filters> = {}): strin
   const p = new URLSearchParams();
   for (const k of STR_KEYS) if (f[k] && f[k] !== locked[k]) p.set(k, f[k]);
   for (const k of NUM_KEYS) if (f[k] !== undefined) p.set(k, String(f[k]));
+  if (f.feat.length) p.set("feat", f.feat.join(","));
   if (f.sort !== "newest") p.set("sort", f.sort);
   return p.toString();
 }
@@ -64,7 +72,7 @@ export function countActive(f: Filters, locked: Partial<Filters> = {}): number {
   let n = 0;
   for (const k of STR_KEYS) if (k !== "q" && f[k] && f[k] !== locked[k]) n++;
   for (const k of NUM_KEYS) if (f[k] !== undefined) n++;
-  return n;
+  return n + f.feat.length;
 }
 
 function gradeNum(g: string): number {
@@ -89,7 +97,9 @@ export function applyFilters(cars: CarSummary[], f: Filters): CarSummary[] {
       (f.mmin === undefined || c.monthly >= f.mmin) &&
       (f.mmax === undefined || c.monthly <= f.mmax) &&
       (f.km === undefined || (c.mileage ?? 0) <= f.km) &&
-      (f.grade === undefined || gradeNum(c.grade) >= f.grade),
+      (f.grade === undefined || gradeNum(c.grade) >= f.grade) &&
+      (f.seats === undefined || (c.seats ?? 0) >= f.seats) &&
+      f.feat.every((k) => c.features.includes(k)),
   );
   return out;
 }

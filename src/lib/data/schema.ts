@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { findState, HQ } from "../states";
 import { normalizeMsisdn } from "../whatsapp";
+import { FEATURES } from "./columns";
 
 /* ---------- cell coercion helpers (sheet cells arrive as strings or numbers) ---------- */
 
@@ -20,7 +21,7 @@ const reqNumber = z.preprocess(toNumber, z.number().positive());
 const year = z.preprocess(toNumber, z.number().int().min(1950).max(2100));
 const optYear = z.preprocess(toNumber, z.number().int().min(1950).max(2100).optional());
 
-const bool = z.preprocess((v) => /^(true|yes|y|1|ya)$/i.test(String(v ?? "").trim()), z.boolean());
+const bool = z.preprocess((v) => /^(true|yes|y|1|ya|ada|✓|✔|☑)$/i.test(String(v ?? "").trim()), z.boolean());
 
 const list = z.preprocess(
   (v) =>
@@ -99,6 +100,17 @@ export const stockRow = z.object({
   featured: bool,
   date_added: optDate,
   sold_date: optDate,
+  seats: z.preprocess(toNumber, z.number().int().min(1).max(60).optional()),
+  drivetrain: z.preprocess((v) => {
+    const s = String(v ?? "").trim().toUpperCase().replace(/\s+/g, "");
+    if (!s) return "";
+    if (/^(4WD|4X4)$/.test(s)) return "4WD";
+    if (/^(AWD|E-FOUR|EFOUR)$/.test(s)) return "AWD";
+    if (/^(2WD|FWD|RWD|4X2)$/.test(s)) return "2WD";
+    return s;
+  }, z.string()),
+  // One tick-box column per feature; TRUE / ✓ / ya all count as ticked.
+  ...Object.fromEntries(FEATURES.map((f) => [f.key, bool])),
 });
 
 export const showroomRow = z.object({

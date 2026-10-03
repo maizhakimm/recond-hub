@@ -4,6 +4,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { AgentCard, ShowroomCard } from "@/components/site/ContactCards";
 import { CheckIcon } from "@/components/ui/Icons";
 import { BRAND, SITE_URL } from "@/lib/config";
+import { FEATURE_NAMES_EN } from "@/lib/data/columns";
 import { agentsInState, defaultShowroom, hqAgents, relatedCars, showroomFor, toSummary } from "@/lib/data/queries";
 import type { Car, SiteData } from "@/lib/data/types";
 import { carAlt, formatKm, formatRM } from "@/lib/format";
@@ -43,6 +44,8 @@ export function CarDetail({ data, car, articles }: { data: SiteData; car: Car; a
     ["Mileage", formatKm(car.mileage_km)],
     ["Auction grade", car.grade],
     ["Engine", car.engine_cc ? `${car.engine_cc.toLocaleString("en-MY")} cc` : undefined],
+    ["Seats", car.seats ? String(car.seats) : undefined],
+    ["Drive", car.drivetrain || undefined],
     ["Transmission", car.transmission],
     ["Fuel", car.fuel],
     ["Colour", car.colour],
@@ -67,6 +70,8 @@ export function CarDetail({ data, car, articles }: { data: SiteData; car: Car; a
     color: car.colour || undefined,
     fuelType: car.fuel || undefined,
     vehicleTransmission: car.transmission || undefined,
+    seatingCapacity: car.seats,
+    driveWheelConfiguration: car.drivetrain || undefined,
     itemCondition: "https://schema.org/UsedCondition",
     mileageFromOdometer: car.mileage_km !== undefined ? { "@type": "QuantitativeValue", value: car.mileage_km, unitCode: "KMT" } : undefined,
     vehicleEngine: car.engine_cc ? { "@type": "EngineSpecification", engineDisplacement: { "@type": "QuantitativeValue", value: car.engine_cc, unitCode: "CMQ" } } : undefined,
@@ -132,10 +137,26 @@ export function CarDetail({ data, car, articles }: { data: SiteData; car: Car; a
             <TitleBlock car={car} monthly={monthly} />
           </div>
 
+          {car.features.length > 0 && (
+            <section aria-labelledby="feat">
+              <h2 id="feat" className="mb-3 text-2xl">
+                Features
+              </h2>
+              <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                {car.features.map((k) => (
+                  <li key={k} className="flex items-center gap-2 rounded-md border border-line bg-card px-3 py-2.5 text-sm font-medium">
+                    <CheckIcon className="h-4 w-4 shrink-0 text-trust" />
+                    {FEATURE_NAMES_EN[k]}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
           {car.highlights.length > 0 && (
             <section aria-labelledby="hl">
               <h2 id="hl" className="mb-3 text-2xl">
-                Highlights
+                {car.features.length ? "Other highlights" : "Highlights"}
               </h2>
               <ul className="grid gap-2 sm:grid-cols-2">
                 {car.highlights.map((h) => (

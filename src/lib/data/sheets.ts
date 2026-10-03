@@ -2,6 +2,7 @@ import "server-only";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { JWT } from "google-auth-library";
+import { canonicalKey } from "./columns";
 import { parseCsv } from "./csv";
 
 /**
@@ -44,10 +45,11 @@ async function authHeader(): Promise<Record<string, string>> {
   return { Authorization: `Bearer ${token}` };
 }
 
-function toRecords(rows: unknown[][]): RawRow[] {
+/** Rows → records keyed by internal column key. Headers may be friendly BM labels ("Harga (RM)") or keys ("price_rm"). */
+function toRecords(tab: Tab, rows: unknown[][]): RawRow[] {
   const [header, ...body] = rows;
   if (!header) return [];
-  const keys = header.map((h) => String(h ?? "").trim().toLowerCase());
+  const keys = header.map((h) => (String(h ?? "").trim() ? canonicalKey(tab, String(h)) : ""));
   return body.map((cells, i) => {
     const rec: RawRow = { __row: i + 2 };
     keys.forEach((k, j) => {
@@ -60,7 +62,7 @@ function toRecords(rows: unknown[][]): RawRow[] {
 async function readSample(tab: Tab): Promise<RawRow[]> {
   const file = path.join(process.cwd(), "data", "sample", `${tab}.csv`);
   const text = await readFile(file, "utf8");
-  return toRecords(parseCsv(text));
+  return toRecords(tab, parseCsv(text));
 }
 
 export async function readTab(tab: Tab): Promise<RawRow[]> {
@@ -69,7 +71,7 @@ export async function readTab(tab: Tab): Promise<RawRow[]> {
   const res = await fetch(url, { headers: await authHeader(), cache: "no-store" });
   if (!res.ok) throw new Error(`[sheets] read ${tab} failed: ${res.status} ${await res.text()}`);
   const json = (await res.json()) as { values?: unknown[][] };
-  return toRecords(json.values ?? []);
+  return toRecords(tab, json.values ?? []);
 }
 
 /** Append one row, matching values to the tab's header row so column order in the sheet can change. */
@@ -85,7 +87,7 @@ export async function appendRow(tab: Tab, record: Record<string, string | number
   });
   if (!headRes.ok) throw new Error(`[sheets] header ${tab} failed: ${headRes.status}`);
   const head = ((await headRes.json()) as { values?: string[][] }).values?.[0] ?? Object.keys(record);
-  const row = head.map((h) => record[String(h).trim().toLowerCase()] ?? "");
+  const row = head.map((h) => record[canonicalKey(tab, String(h))] ?? "");
   const res = await fetch(
     `${API}/${process.env.SHEET_ID}/values/${encodeURIComponent(`${tab}!A1`)}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`,
     {

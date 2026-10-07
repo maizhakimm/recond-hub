@@ -3,19 +3,20 @@
 import { useEffect, useRef, useState } from "react";
 import { SOCIAL } from "@/lib/config";
 
-/** "@farishafie313" from https://www.tiktok.com/@farishafie313?… */
 export function tiktokHandle(url: string): string {
   return url.match(/tiktok\.com\/@([\w.-]+)/)?.[1] ?? "";
 }
 
 /**
- * TikTok's official creator embed: shows the account's latest videos and updates by itself.
- * The TikTok script (~heavy) only loads when the section scrolls into view, so it never slows the first paint.
+ * TikTok creator embed with a permanent profile fallback.
+ * TikTok can block third-party embeds in some browsers/privacy modes, so the section
+ * must remain useful even when embed.js is unavailable.
  */
 export function TikTokProfile() {
   const handle = tiktokHandle(SOCIAL.tiktok);
   const box = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [embedLoaded, setEmbedLoaded] = useState(false);
 
   useEffect(() => {
     const el = box.current;
@@ -27,7 +28,7 @@ export function TikTokProfile() {
           io.disconnect();
         }
       },
-      { rootMargin: "400px" },
+      { rootMargin: "500px" },
     );
     io.observe(el);
     return () => io.disconnect();
@@ -35,31 +36,43 @@ export function TikTokProfile() {
 
   useEffect(() => {
     if (!visible) return;
-    // Re-run TikTok's script each mount so client-side navigation re-renders the embed.
+    const existing = document.querySelector<HTMLScriptElement>('script[src="https://www.tiktok.com/embed.js"]');
+    if (existing) {
+      setEmbedLoaded(true);
+      return;
+    }
     const s = document.createElement("script");
     s.src = "https://www.tiktok.com/embed.js";
     s.async = true;
+    s.onload = () => setEmbedLoaded(true);
+    s.onerror = () => setEmbedLoaded(false);
     document.body.appendChild(s);
-    return () => s.remove();
   }, [visible]);
 
   if (!handle) return null;
   const profile = `https://www.tiktok.com/@${handle}`;
+
   return (
-    <div ref={box} className="min-h-[420px]">
-      {visible ? (
+    <div ref={box} className="w-full max-w-[780px]">
+      {visible && (
         <blockquote className="tiktok-embed" cite={profile} data-unique-id={handle} data-embed-type="creator" style={{ maxWidth: 780, minWidth: 288, margin: 0 }}>
           <section>
-            <a target="_blank" rel="noopener" href={`${profile}?refer=creator_embed`}>
+            <a target="_blank" rel="noopener noreferrer" href={`${profile}?refer=creator_embed`}>
               @{handle}
             </a>
           </section>
         </blockquote>
-      ) : (
-        <a href={profile} target="_blank" rel="noopener" className="flex h-[420px] items-center justify-center rounded-md bg-night text-sm font-semibold text-white">
-          Loading latest TikTok videos from @{handle}…
-        </a>
       )}
+
+      <div className="mt-4 rounded-md border border-line bg-paper-2 p-5 text-center">
+        <p className="font-bold">RecondHub on TikTok</p>
+        <p className="mt-1 text-sm text-ink-2">
+          {embedLoaded ? "Latest TikTok content is shown above when supported by your browser." : "TikTok preview may be blocked by your browser. Open our profile to watch the latest videos."}
+        </p>
+        <a href={profile} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-4">
+          Watch on TikTok · @{handle}
+        </a>
+      </div>
     </div>
   );
 }

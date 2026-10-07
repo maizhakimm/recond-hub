@@ -1,19 +1,36 @@
+"use client";
+
 import Image, { type ImageProps } from "next/image";
+import { useState } from "react";
 
 /**
- * All car photos go through next/image (AVIF/WebP, resized, cached on Vercel), so visitors never hit
- * Google Drive directly. Local SVG placeholders are served as-is.
+ * Car photos normally go through next/image. If a remote/Drive image cannot load,
+ * show a clean local fallback instead of leaving a broken hero/card.
  */
 export function CarImage({ src, alt, ...rest }: Omit<ImageProps, "src"> & { src?: string }) {
-  if (!src) {
+  const [failed, setFailed] = useState(false);
+
+  if (!src || failed) {
     return (
-      <div className="flex h-full w-full items-center justify-center bg-paper-2 text-sm text-muted" role="img" aria-label={alt}>
-        Photo coming soon
+      <div className="flex h-full w-full items-center justify-center bg-paper-2 p-6 text-center text-sm text-muted" role="img" aria-label={alt}>
+        <div>
+          <p className="font-semibold text-ink-2">RecondHub</p>
+          <p className="mt-1">Vehicle photo coming soon</p>
+        </div>
       </div>
     );
   }
-  const img = <Image src={src} alt={alt} unoptimized={src.endsWith(".svg")} {...rest} />;
-  // Wikimedia Commons demo photos: labelled so nobody mistakes them for real stock. Credits at /credits.
+
+  const img = (
+    <Image
+      src={src}
+      alt={alt}
+      unoptimized={src.endsWith(".svg")}
+      onError={() => setFailed(true)}
+      {...rest}
+    />
+  );
+
   if (!src.startsWith("/photos/")) return img;
   return (
     <>

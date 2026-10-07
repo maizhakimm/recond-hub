@@ -1,47 +1,52 @@
 import type { Metadata } from "next";
 import { ProsePage } from "@/components/site/Prose";
-import { BRAND, CONTACT_EMAIL, LEGAL_NAME } from "@/lib/config";
+import { BRAND, CONTACT_EMAIL } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "Privacy Policy (PDPA)",
-  description: `How ${BRAND} collects and uses your personal data under Malaysia's Personal Data Protection Act 2010.`,
+  description: `How ${BRAND} collects and uses personal data through this website.`,
   alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {
   return (
-    <ProsePage title="Privacy policy" path="/privacy" intro="Notice under the Personal Data Protection Act 2010 (PDPA). Last updated 28 September 2026.">
-      <h2>Who we are</h2>
+    <ProsePage title="Privacy policy" path="/privacy" intro="Privacy notice for the RecondHub platform. Last updated 7 October 2026.">
+      <h2>About this platform</h2>
       <p>
-        This website is operated by {LEGAL_NAME} (&ldquo;{BRAND}&rdquo;, &ldquo;we&rdquo;). We are the data user for personal data collected through this website.
+        {BRAND} is a brand and online automotive platform focused on reconditioned vehicle listings and enquiries in Malaysia. References to &ldquo;{BRAND}&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo; or &ldquo;our&rdquo; in this notice refer to the operator of the {BRAND} platform. {BRAND} does not represent itself as an incorporated company unless expressly stated otherwise.
       </p>
       <h2>What we collect</h2>
       <ul>
-        <li>Details you give us in forms or WhatsApp: name, phone number, state, preferred viewing date and time, the car you are interested in, trade-in details, and income figures you enter in the loan eligibility check.</li>
-        <li>The page you came from, campaign tags (UTM parameters) and, if you arrived through an agent&rsquo;s link, that agent&rsquo;s ID (kept in a cookie for 30 days).</li>
-        <li>Analytics data through Google Analytics, Meta Pixel and TikTok Pixel, which use cookies to measure visits and advertising.</li>
+        <li>Information you voluntarily provide through website forms or WhatsApp, such as your name, phone number, state, preferred viewing date and time, vehicle interests, trade-in details and information you provide for loan-related enquiries.</li>
+        <li>Information associated with your enquiry, such as the page or vehicle you enquired about, campaign tags (UTM parameters) and, where applicable, an agent or referral identifier.</li>
+        <li>Basic website usage and analytics information where analytics or advertising measurement tools are enabled.</li>
       </ul>
       <h2>Why we use it</h2>
       <ul>
-        <li>To reply to your enquiry, arrange viewings, prepare loan applications and trade-in valuations.</li>
-        <li>To assign your enquiry to the right showroom, agent or sales advisor.</li>
-        <li>To improve our website and measure our advertising.</li>
+        <li>To respond to enquiries and assist with vehicle viewing, sourcing, financing or trade-in requests.</li>
+        <li>To route an enquiry to an appropriate sales contact, agent or vehicle source where necessary.</li>
+        <li>To operate, secure and improve the website and understand the effectiveness of our marketing.</li>
       </ul>
-      <h2>Who we share it with</h2>
+      <h2>Who we may share it with</h2>
       <p>
-        Our staff, showrooms and appointed agents; banks and financiers when you ask us to apply for a loan; insurers and JPJ/Puspakom when completing your
-        purchase; and service providers that host our systems (such as Google Workspace and Vercel). We do not sell your personal data.
+        Information may be shared only where reasonably necessary to handle your request, including with relevant sales contacts, vehicle dealers or showrooms, appointed agents, banks or financiers when financing is requested, and technology service providers used to operate the platform. We do not sell your personal data.
       </p>
-      <h2>Your choices and rights</h2>
+      <h2>Your choices</h2>
       <p>
-        Providing your data is voluntary, but without a phone number we cannot reply to you. You may request access to or correction of your personal data, or
-        ask us to stop contacting you, by emailing <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. We may charge a fee for data access requests as
-        allowed by the PDPA.
+        Providing information through this website is voluntary. You may request access to or correction of personal data held about you, withdraw a marketing request, or ask us to stop contacting you by emailing <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
       </p>
       <h2>Retention and security</h2>
-      <p>We keep enquiry records only as long as needed for the purposes above and for legal and accounting requirements, and protect them with access controls.</p>
-      <h2>Bahasa Malaysia</h2>
-      <p>Versi Bahasa Malaysia notis ini boleh didapati atas permintaan. Sekiranya terdapat percanggahan, versi Bahasa Inggeris akan diguna pakai.</p>
+      <p>
+        Enquiry information is retained only for as long as reasonably necessary for the purpose for which it was collected and any applicable legal or administrative requirements. Reasonable access controls and security measures are used to protect information handled through the platform.
+      </p>
+      <h2>Third-party services</h2>
+      <p>
+        The website may use third-party services for hosting, analytics, communications and other operational functions. Those services may process information in accordance with their own terms and privacy practices.
+      </p>
+      <h2>Contact</h2>
+      <p>
+        For privacy enquiries relating to the {BRAND} platform, contact <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+      </p>
     </ProsePage>
   );
 }

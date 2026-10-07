@@ -10,20 +10,22 @@ import { STATES } from "@/lib/states";
 
 export const revalidate = 300;
 
+// State / Federal Territory flags. Wikimedia Commons is used as the source so the artwork can be
+// reviewed independently. These are presentation-only; enquiries still route through RecondHub.
 const STATE_FLAGS: Record<string, string> = {
-  johor: "🏴",
-  kedah: "🏳️",
-  kelantan: "🏴",
-  melaka: "🏳️",
-  "negeri-sembilan": "🏴",
-  pahang: "🏳️",
-  penang: "🏳️",
-  perak: "🏴",
-  perlis: "🏳️",
-  selangor: "🏴",
-  terengganu: "🏳️",
-  "kuala-lumpur": "🏙️",
-  putrajaya: "🏛️",
+  johor: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Johor.svg",
+  kedah: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Kedah.svg",
+  kelantan: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Kelantan.svg",
+  melaka: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Malacca.svg",
+  "negeri-sembilan": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Negeri_Sembilan.svg",
+  pahang: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Pahang.svg",
+  penang: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Penang_(Malaysia).svg",
+  perak: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Perak.svg",
+  perlis: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Perlis.svg",
+  selangor: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Selangor.svg",
+  terengganu: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Terengganu.svg",
+  "kuala-lumpur": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Kuala_Lumpur,_Malaysia.svg",
+  putrajaya: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Putrajaya.svg",
 };
 
 export function generateStaticParams() { return STATES.map((s) => ({ state: s.slug })); }
@@ -68,7 +70,9 @@ export default async function StatePage({ params }: PageProps<"/[state]">) {
           <h2 className="mb-4 text-3xl">Sales assistance in {st.name}</h2>
           <div className="rounded-md border border-line bg-card p-5">
             <div className="flex items-center gap-4">
-              <div className="grid h-16 w-16 shrink-0 place-items-center rounded-full border border-line bg-paper-2 text-3xl" aria-hidden>{STATE_FLAGS[st.slug] ?? "🇲🇾"}</div>
+              <div className="h-16 w-20 shrink-0 overflow-hidden rounded-md border border-line bg-white shadow-sm">
+                <img src={STATE_FLAGS[st.slug]} alt={`${st.name} flag`} className="h-full w-full object-cover" loading="lazy" />
+              </div>
               <div>
                 <p className="text-lg font-bold">RecondHub Sales Advisor – {st.name}</p>
                 <p className="mt-1 text-sm text-ink-2">Local sales assistance for buyers in {st.name}. No individual agent details are displayed.</p>

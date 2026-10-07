@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BRAND, BRAND_TAGLINE, LEGAL_NAME, SOCIAL } from "@/lib/config";
+import { BRAND, BRAND_TAGLINE, SOCIAL } from "@/lib/config";
 import { STATES } from "@/lib/states";
 import { Logo } from "./Header";
 
@@ -10,7 +10,7 @@ export function Footer() {
         <div className="space-y-3">
           <Logo />
           <p className="text-sm text-ink-2">
-            {BRAND}, known on TikTok as &ldquo;{BRAND_TAGLINE}&rdquo;. Auction-sheet verified recond cars, 10+ showrooms and agents across Malaysia.
+            {BRAND}, known on TikTok as &ldquo;{BRAND_TAGLINE}&rdquo;. Discover reconditioned vehicles and make enquiries directly through our automotive platform.
           </p>
           <p className="text-sm">
             <a href={SOCIAL.tiktok} className="font-medium text-gold-text underline" rel="noopener" target="_blank">
@@ -39,7 +39,7 @@ export function Footer() {
             ))}
           </ul>
         </nav>
-        <nav aria-label="Company" className="text-sm">
+        <nav aria-label="RecondHub" className="text-sm">
           <h2 className="mb-3 font-sans text-sm font-semibold uppercase tracking-wider">{BRAND}</h2>
           <ul className="space-y-1">
             {[
@@ -51,8 +51,8 @@ export function Footer() {
               ["/become-an-agent", "Become an agent"],
               ["/about", "About"],
               ["/contact", "Contact"],
-              ["/privacy", "Privacy policy (PDPA)"],
-              ["/terms", "Terms"],
+              ["/privacy", "Privacy policy"],
+              ["/terms", "Terms of use"],
               ["/credits", "Photo credits"],
             ].map(([href, label]) => (
               <li key={href}>
@@ -77,9 +77,10 @@ export function Footer() {
         </nav>
       </div>
       <div className="border-t border-line">
-        <p className="container-page py-4 text-xs text-muted">
-          © {new Date().getFullYear()} {LEGAL_NAME}. Prices and monthly instalments are estimates and subject to bank approval.
-        </p>
+        <div className="container-page flex flex-col gap-1 py-4 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} {BRAND}. All rights reserved.</p>
+          <p>{BRAND} is a brand and automotive enquiry platform. Prices and monthly instalments are estimates and subject to confirmation and bank approval.</p>
+        </div>
       </div>
     </footer>
   );

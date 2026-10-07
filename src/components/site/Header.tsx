@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { BRAND } from "@/lib/config";
 import { SearchIcon } from "@/components/ui/Icons";
@@ -12,11 +13,19 @@ const NAV = [
   { href: "/why-us", label: "Why us" },
 ];
 
+const LOGO_SRC = "/photos/file_00000000a3fc81fa8d64bb1608950c3a.png";
+
 export function Logo({ dark = false }: { dark?: boolean }) {
   return (
-    <Link href="/" className="flex min-h-11 items-center gap-2" aria-label={`${BRAND} home`}>
-      <span className={`grid h-9 w-9 place-items-center rounded-md text-lg font-extrabold ${dark ? "bg-champagne text-night" : "bg-ink text-champagne"}`}>R</span>
-      <span className={`text-xl font-extrabold tracking-tight ${dark ? "text-[#f1ead9]" : "text-ink"}`}>{BRAND}</span>
+    <Link href="/" className="flex min-h-11 items-center" aria-label={`${BRAND} home`}>
+      <Image
+        src={LOGO_SRC}
+        alt={`${BRAND} — Quality Used Car, Trusted Deals`}
+        width={420}
+        height={120}
+        priority
+        className={`h-11 w-auto object-contain ${dark ? "brightness-0 invert" : ""}`}
+      />
     </Link>
   );
 }

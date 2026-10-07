@@ -3,13 +3,28 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CarGrid } from "@/components/cars/CarCard";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
-import { AgentCard } from "@/components/site/ContactCards";
 import { BRAND } from "@/lib/config";
 import { getSiteData } from "@/lib/data";
-import { agentsInState, hqAgents, listedStock, toSummary } from "@/lib/data/queries";
+import { listedStock, toSummary } from "@/lib/data/queries";
 import { STATES } from "@/lib/states";
 
 export const revalidate = 300;
+
+const STATE_FLAGS: Record<string, string> = {
+  johor: "🏴",
+  kedah: "🏳️",
+  kelantan: "🏴",
+  melaka: "🏳️",
+  "negeri-sembilan": "🏴",
+  pahang: "🏳️",
+  penang: "🏳️",
+  perak: "🏴",
+  perlis: "🏳️",
+  selangor: "🏴",
+  terengganu: "🏳️",
+  "kuala-lumpur": "🏙️",
+  putrajaya: "🏛️",
+};
 
 export function generateStaticParams() { return STATES.map((s) => ({ state: s.slug })); }
 
@@ -28,8 +43,6 @@ export default async function StatePage({ params }: PageProps<"/[state]">) {
   const [{ state }, data] = await Promise.all([params, getSiteData()]);
   const st = STATES.find((s) => s.slug === state);
   if (!st) notFound();
-  const agents = agentsInState(data, st.slug);
-  const hq = hqAgents(data);
   const allStock = listedStock(data).filter((c) => c.status !== "Sold");
   const localStock = allStock.filter((c) => c.stateSlug === st.slug);
   const displayStock = localStock.length ? localStock : allStock.slice(0, 12);
@@ -53,8 +66,17 @@ export default async function StatePage({ params }: PageProps<"/[state]">) {
 
         <section>
           <h2 className="mb-4 text-3xl">Sales assistance in {st.name}</h2>
-          <div className="grid gap-3">{(agents.length ? agents : hq).map((a) => <AgentCard key={a.agent_id} agent={a} label={agents.length ? `RecondHub agent · ${st.name}` : "RecondHub sales advisor"} />)}</div>
-          <p className="mt-3 text-sm text-muted">Agents provide local sales assistance. This does not mean a physical RecondHub showroom or vehicle stock is located in {st.name}.</p>
+          <div className="rounded-md border border-line bg-card p-5">
+            <div className="flex items-center gap-4">
+              <div className="grid h-16 w-16 shrink-0 place-items-center rounded-full border border-line bg-paper-2 text-3xl" aria-hidden>{STATE_FLAGS[st.slug] ?? "🇲🇾"}</div>
+              <div>
+                <p className="text-lg font-bold">RecondHub Sales Advisor – {st.name}</p>
+                <p className="mt-1 text-sm text-ink-2">Local sales assistance for buyers in {st.name}. No individual agent details are displayed.</p>
+              </div>
+            </div>
+            <Link href="/find-me-a-car" className="btn btn-wa mt-5 w-full">WhatsApp RecondHub</Link>
+          </div>
+          <p className="mt-3 text-sm text-muted">Sales coverage does not mean a physical RecondHub showroom or vehicle stock is located in {st.name}.</p>
         </section>
       </div>
 

@@ -4,7 +4,7 @@
  * The /photos/* images are Wikimedia Commons demo photos (see /credits); replace them with your own before launch.
  */
 export type Delivery = { image: string; caption: string };
-export type TikTokVideo = { url: string; caption: string };
+export type TikTokVideo = { id: string; url: string; caption: string };
 export type PrivateDelivery = { image: string; title: string; note: string };
 
 export const DELIVERIES: Delivery[] = [
@@ -15,9 +15,9 @@ export const DELIVERIES: Delivery[] = [
 ];
 
 export const TIKTOK_VIDEOS: TikTokVideo[] = [
-  { url: "https://vt.tiktok.com/ZSbVURAh9/", caption: "Watch on TikTok" },
-  { url: "https://vt.tiktok.com/ZSbVUdMYw/", caption: "Watch on TikTok" },
-  { url: "https://vt.tiktok.com/ZSbVUNj61/", caption: "Watch on TikTok" },
+  { id: "7540568899503295762", url: "https://www.tiktok.com/@farishafie313/video/7540568899503295762", caption: "Watch on TikTok" },
+  { id: "7624360484313042183", url: "https://www.tiktok.com/@farishafie313/video/7624360484313042183", caption: "Watch on TikTok" },
+  { id: "7540893430029847816", url: "https://www.tiktok.com/@farishafie313/video/7540893430029847816", caption: "Watch on TikTok" },
 ];
 
 export const PRIVATE_DELIVERIES: PrivateDelivery[] = [

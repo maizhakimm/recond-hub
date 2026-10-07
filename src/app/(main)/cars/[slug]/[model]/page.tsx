@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: PageProps<"/cars/[slug]/[mode
   const name = `${any.make} ${any.model}`;
   return {
     title: `${name} Recond for Sale · Harga ${name} Recond Malaysia`,
-    description: `${cars.length} ${name} recond in stock at ${BRAND}. Compare variants, auction grades, mileage and harga, then book a viewing at a showroom near you.`,
+    description: `Browse ${name} recond listings at ${BRAND}. Compare available variants, prices, mileage and vehicle details, then enquire with our team via WhatsApp.`,
     alternates: { canonical: `/cars/${slug}/${model}` },
   };
 }
@@ -45,7 +45,7 @@ export default async function ModelPage({ params }: PageProps<"/cars/[slug]/[mod
       data={data}
       cars={cars}
       title={`${name} recond for sale`}
-      intro={`Every ${name} recond we have right now, from all our showrooms and partner APs. Prices, grades and mileage are updated daily.${cars.length ? "" : " None in stock today: tell us your spec and we will source one."}`}
+      intro={`Browse the ${name} recond listings currently available on RecondHub. Compare prices, variants, mileage and vehicle information where provided.${cars.length ? "" : " None are listed today: tell us your preferred specification and we can help with a sourcing enquiry."}`}
       crumbs={[
         { name: "Home", href: "/" },
         { name: "Cars", href: "/cars" },

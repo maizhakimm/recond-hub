@@ -19,7 +19,7 @@ export type RouteResult = { whatsapp: string; assignedTo: string; rule: string }
  * We keep the original lead context (state, car, source page, etc.) in the Leads sheet,
  * so state/agent routing can be enabled later without changing the forms.
  */
-const CENTRAL_WHATSAPP = "6013838871";
+const CENTRAL_WHATSAPP = "60138388371";
 
 export function routeLead(_data: SiteData, _input: RouteInput): RouteResult {
   return {

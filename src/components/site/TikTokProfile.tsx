@@ -1,6 +1,5 @@
 "use client";
 
-import Script from "next/script";
 import { SOCIAL } from "@/lib/config";
 import { TIKTOK_VIDEOS } from "@/content/media";
 
@@ -8,7 +7,7 @@ export function tiktokHandle(url: string): string {
   return url.match(/tiktok\.com\/@([\w.-]+)/)?.[1] ?? "";
 }
 
-/** Selected TikTok videos rendered with TikTok's official video embed. */
+/** Selected TikTok videos rendered with TikTok's direct official player iframe. */
 export function TikTokProfile() {
   const handle = tiktokHandle(SOCIAL.tiktok);
   const profile = handle ? `https://www.tiktok.com/@${handle}` : SOCIAL.tiktok;
@@ -18,23 +17,27 @@ export function TikTokProfile() {
       <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 lg:grid lg:grid-cols-3 lg:overflow-visible">
         {TIKTOK_VIDEOS.map((video) => (
           <div key={video.id} className="w-[325px] shrink-0 snap-start sm:w-[350px] lg:w-auto">
-            <blockquote
-              className="tiktok-embed"
-              cite={video.url}
-              data-video-id={video.id}
-              style={{ maxWidth: 605, minWidth: 288, margin: 0 }}
+            <div className="overflow-hidden rounded-xl bg-black shadow-sm">
+              <iframe
+                src={`https://www.tiktok.com/player/v1/${video.id}?&music_info=1&description=1&autoplay=0&loop=0`}
+                title={`TikTok video ${video.id}`}
+                allow="fullscreen; encrypted-media; picture-in-picture"
+                allowFullScreen
+                loading="lazy"
+                className="block aspect-[9/16] w-full border-0"
+              />
+            </div>
+            <a
+              href={video.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-block text-sm font-semibold underline underline-offset-4"
             >
-              <section>
-                <a href={video.url} target="_blank" rel="noopener noreferrer">
-                  {video.caption}
-                </a>
-              </section>
-            </blockquote>
+              Open on TikTok ↗
+            </a>
           </div>
         ))}
       </div>
-
-      <Script src="https://www.tiktok.com/embed.js" strategy="lazyOnload" />
 
       <div className="mt-5 text-center">
         <a href={profile} target="_blank" rel="noopener noreferrer" className="btn btn-primary">

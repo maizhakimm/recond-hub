@@ -13,6 +13,12 @@ export type RouteInput = {
 };
 export type RouteResult = { whatsapp: string; assignedTo: string; rule: string };
 
+/** Kept for components that use the shared round-robin helper. */
+export function pickRoundRobin<T>(items: T[], now = Date.now()): T | undefined {
+  if (!items.length) return undefined;
+  return items[Math.floor(now / 60000) % items.length];
+}
+
 /**
  * Temporary launch routing:
  * Send every website WhatsApp enquiry to one central RecondHub number.

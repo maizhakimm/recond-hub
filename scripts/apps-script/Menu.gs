@@ -7,6 +7,7 @@ function onOpen() {
     .addItem('🔄 Refresh website', 'refreshWebsite')
     .addItem('📁 Create photo folders for all cars', 'createAllPhotoFolders')
     .addItem('🖼️ Sync photos now', 'syncPhotosNow')
+    .addItem('🛠️ Betulkan semua folder gambar', 'fixAllPhotoFolders')
     .addSeparator()
     .addItem('Install triggers (run once)', 'installTriggers')
     .addToUi();

@@ -159,3 +159,69 @@ function syncPhotos() {
     lock.releaseLock();
   }
 }
+
+/**
+ * Menu: put every car back on its own folder inside "1. Gambar Stok Kereta".
+ * For each Stock row whose Folder Gambar points somewhere else (e.g. staff's own Drive), copy the
+ * photos from that folder into the car's folder in the photos root (created if missing), point
+ * Folder Gambar at it, then re-sync the photo links. Originals are left untouched.
+ * Stops after ~5 minutes (Apps Script time limit); run it again to continue where it stopped.
+ */
+function fixAllPhotoFolders() {
+  var started = Date.now();
+  var ss = SpreadsheetApp.getActive();
+  var sheet = ss.getSheetByName('Stock');
+  var cols = ensurePhotoColumn_(sheet);
+  var ours = rootFoldersByCode_();
+  var root = photosRoot_();
+  var fixed = 0, copied = 0, unfinished = false;
+
+  for (var r = 2; r <= sheet.getLastRow(); r++) {
+    if (Date.now() - started > 5 * 60 * 1000) { unfinished = true; break; }
+    var row = sheet.getRange(r, 1, 1, sheet.getLastColumn()).getValues()[0];
+    var code = String(row[cols.code - 1] || '').trim().toUpperCase();
+    if (!code) continue;
+    var cell = sheet.getRange(r, cols[PHOTO_FOLDER_COL]);
+    var linkedId = folderIdFromUrl_(cell.getValue());
+    var own = ours[code];
+    if (own && own.getId() === linkedId) continue; // already correct
+
+    if (!own) {
+      own = root.createFolder(folderName_(row, cols));
+      own.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+      ours[code] = own;
+    }
+    if (linkedId) {
+      var have = {};
+      var mine = own.getFiles();
+      while (mine.hasNext()) have[mine.next().getName()] = true;
+      try {
+        var files = DriveApp.getFolderById(linkedId).getFiles();
+        while (files.hasNext()) {
+          if (Date.now() - started > 5 * 60 * 1000) { unfinished = true; break; }
+          var f = files.next();
+          var type = String(f.getMimeType());
+          if (f.isTrashed() || (type.indexOf('image/') !== 0 && type !== 'application/pdf')) continue;
+          if (have[f.getName()]) continue;
+          f.makeCopy(f.getName(), own);
+          have[f.getName()] = true;
+          copied++;
+        }
+      } catch (err) {
+        // old folder deleted or not shared with us: keep the new (empty) folder
+      }
+      if (unfinished) break; // leave the link as is so the next run finishes copying this car
+    }
+    cell.setValue(own.getUrl());
+    if (cols.photos) sheet.getRange(r, cols.photos).clearContent(); // refilled by syncPhotos below
+    fixed++;
+  }
+
+  syncPhotos();
+  ss.toast(
+    fixed + ' kereta dibetulkan, ' + copied + ' gambar disalin.' +
+      (unfinished ? ' Belum habis: tekan menu ini sekali lagi.' : ' Siap. Tekan Refresh website.'),
+    'RecondHub',
+    10
+  );
+}

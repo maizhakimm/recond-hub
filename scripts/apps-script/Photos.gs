@@ -84,6 +84,18 @@ function createAllPhotoFolders() {
   SpreadsheetApp.getActive().toast(n + ' photo folder(s) created.', 'RecondHub', 5);
 }
 
+/** Folders inside the photos root, keyed by car code ("DC764 - Lexus LM 2025" → "DC764"). */
+function rootFoldersByCode_() {
+  var map = {};
+  var it = photosRoot_().getFolders();
+  while (it.hasNext()) {
+    var f = it.next();
+    var code = f.getName().split(' - ')[0].trim().toUpperCase();
+    if (code && !map[code]) map[code] = f;
+  }
+  return map;
+}
+
 /** Natural sort so 2.jpg comes before 10.jpg. */
 function naturalCompare_(a, b) {
   return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
@@ -99,11 +111,20 @@ function syncPhotos() {
     var cols = ensurePhotoColumn_(sheet);
     var data = sheet.getRange(2, 1, sheet.getLastRow() - 1, sheet.getLastColumn()).getValues();
     var changed = 0;
+    var ours = rootFoldersByCode_();
 
     data.forEach(function (row, i) {
       var r = i + 2;
       if (!row[cols.code - 1]) return;
       var id = folderIdFromUrl_(row[cols[PHOTO_FOLDER_COL] - 1]);
+      // A folder for this code inside "1. Gambar Stok Kereta" always wins over a link pasted from
+      // somewhere else (e.g. staff's own Drive), so moving photos into the right folder is enough.
+      var own = ours[String(row[cols.code - 1]).trim().toUpperCase()];
+      if (own && own.getId() !== id) {
+        id = own.getId();
+        sheet.getRange(r, cols[PHOTO_FOLDER_COL]).setValue(own.getUrl());
+        changed++;
+      }
       if (!id) {
         ensureCarFolder_(sheet, r, cols);
         return; // new folder is empty; photos arrive on a later sync

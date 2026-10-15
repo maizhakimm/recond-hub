@@ -132,7 +132,12 @@ function syncPhotos() {
       var files = [];
       var it;
       try {
-        it = DriveApp.getFolderById(id).getFiles();
+        var folder = DriveApp.getFolderById(id);
+        // Folders made by hand are private; the website can only show photos shared by link.
+        if (folder.getSharingAccess && folder.getSharingAccess() !== DriveApp.Access.ANYONE_WITH_LINK) {
+          try { folder.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW); } catch (e) {}
+        }
+        it = folder.getFiles();
       } catch (err) {
         return; // folder deleted or no access: leave the row as it is
       }
